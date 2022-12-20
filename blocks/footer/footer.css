@@ -1,0 +1,14 @@
+.footer {
+  width: 100%;
+  margin-top: 66px;
+}
+
+.footer__signature {
+  margin: 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  color: #545454;
+}
