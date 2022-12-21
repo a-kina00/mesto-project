@@ -1,0 +1,13 @@
+.input-container__signature {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  margin: 0 0 40px;
+}
+
+@media screen and (max-width: 768px) {
+  .input-container__signature {
+    margin: 0 0 45px;
+  }
+}

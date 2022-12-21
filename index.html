@@ -12,7 +12,7 @@
   <header class="header section">
     <img class="header__logo" src="./images/logo.svg" alt="Логотип">
   </header>
-  
+
   <section class="profile section">
     <img class="profile__img" src="./images/image.jpg" alt="Аватар">
     <div class="profile__info">
@@ -24,7 +24,7 @@
   </section>
 
   <ul class="cards section">
-    <li class="cards__card">
+    <li class="card">
       <img class="card__img" src="./images/karachaevsk.png" alt="Карачаевск">
       <div class="card__info">
         <h2 class="card__title">Карачаевск</h2>
@@ -34,7 +34,7 @@
         </label>
       </div>
     </li>
-    <li class="cards__card">
+    <li class="card">
       <img class="card__img" src="./images/gora-elbrus.png" alt="Гора Эльбрус">
       <div class="card__info">
         <h2 class="card__title">Гора Эльбрус</h2>
@@ -44,7 +44,7 @@
         </label>
       </div>
     </li>
-    <li class="cards__card">
+    <li class="card">
       <img class="card__img" src="./images/dombai.png" alt="Домбай">
       <div class="card__info">
         <h2 class="card__title">Домбай</h2>
@@ -54,7 +54,7 @@
         </label>
       </div>
     </li>
-    <li class="cards__card">
+    <li class="card">
       <img class="card__img" src="./images/gora-elbrus.png" alt="Гора Эльбрус">
       <div class="card__info">
         <h2 class="card__title">Гора Эльбрус</h2>
@@ -64,7 +64,7 @@
         </label>
       </div>
     </li>
-    <li class="cards__card">
+    <li class="card">
       <img class="card__img" src="./images/dombai.png" alt="Домбай">
       <div class="card__info">
         <h2 class="card__title">Домбай</h2>
@@ -74,7 +74,7 @@
         </label>
       </div>
     </li>
-    <li class="cards__card">
+    <li class="card">
       <img class="card__img" src="./images/karachaevsk.png" alt="Карачаевск">
       <div class="card__info">
         <h2 class="card__title">Карачаео-Черкесия</h2>
@@ -86,19 +86,19 @@
     </li>
   </ul>
 
-  <div class="edit-page">
-    <div class="edit-form">
-      <input class="edit-form__close button" type="button">
-      <form class="edit-form__content">
-        <h2 class="content__heading">Редактировать профиль</h2>
-        <input class="input-container name__input-container" type="text" value="">
+  <div class="popup">
+    <div class="popup__container">
+      <input class="popup__close button" type="button">
+      <form class="popup__content">
+        <h2 class="popup__content-heading">Редактировать профиль</h2>
+        <input class="input-container input-container__name" type="text" value="Жак-Ив Кусто">
         <br>
-        <input class="input-container signature__input-container" type="text">
+        <input class="input-container input-container__signature" type="text" value="Исследователь океана">
         <br>
-        <input type="button" class="edit-form__save-button button" value="Сохранить">
+        <input type="button" class="popup__save-button button" value="Сохранить">
       </form>
     </div>
-    <div class="overlay"></div>
+    <div class="popup__overlay"></div>
   </div>
 
   <footer class="footer section">

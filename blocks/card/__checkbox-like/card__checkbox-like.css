@@ -1,0 +1,15 @@
+.card__checkbox-like {
+  clip-path: inset(0, 0, 0, 0);
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.card__checkbox-like:checked+.like {
+  background-image: url(../../../images/heart-fill.svg);
+}
+
+.card__checkbox-like:not(:checked):hover+.like {
+  opacity: .6;
+}
