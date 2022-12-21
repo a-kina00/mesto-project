@@ -1,5 +1,4 @@
 .profile__add-button {
-  justify-self: flex-end;
   width: 150px;
   height: 50px;
   border: 2px solid white;
@@ -8,6 +7,8 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: 22px;
+  border-radius: 2px;
+  margin-left: auto;
 }
 
 .profile__add-button:hover {
@@ -18,5 +19,6 @@
   .profile__add-button {
     width: 282px;
     background-size: 16px;
+    margin-left: 0;
   }
 }

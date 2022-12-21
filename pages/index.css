@@ -22,31 +22,23 @@
 @import url(../blocks/profile/__description/profile__description.css);
 @import url(../blocks/profile/__add-button/profile__add-button.css);
 
-@import url(../blocks/card/cards.css);
+@import url(../blocks/cards/cards.css);
 @import url(../blocks/card/card.css);
 @import url(../blocks/card/__img/card__img.css);
 @import url(../blocks/card/__info/card__info.css);
 @import url(../blocks/card/__title/card__title.css);
-@import url(../blocks/card/__checkbox-like/card__checkbox-like.css);
 @import url(../blocks/card/__like/card__like.css);
-
-@import url(../blocks/input-container/input-container.css);
-@import url(../blocks/input-container/__name/input-container__name.css);
-@import url(../blocks/input-container/__signature/input-container__signature.css);
 
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__content/popup__content.css);
+@import url(../blocks/popup/__input-container/popup__input-container.css);
+@import url(../blocks/popup/__input-container/_value/popup__input-container_value_name.css);
+@import url(../blocks/popup/__input-container/_value/popup__input-container_value_signature.css);
 @import url(../blocks/popup/__content-heading/popup__content-heading.css);
 @import url(../blocks/popup/__close/popup__close.css);
-@import url(../blocks/popup/__save-button/__save-button.css);
-@import url(../blocks/popup/__overlay/popup__overlay.css);
+@import url(../blocks/popup/__save-button/popup__save-button.css);
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__signature/footer__signature.css);
-
-/*
-* {
-  border: 1px solid red;
-}*/

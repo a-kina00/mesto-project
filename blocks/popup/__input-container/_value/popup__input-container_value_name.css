@@ -1,13 +1,13 @@
-.input-container__signature {
+.popup__input-container_value_name {
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
-  margin: 0 0 40px;
+  margin: 0 0 28px;
 }
 
 @media screen and (max-width: 768px) {
-  .input-container__signature {
-    margin: 0 0 45px;
+  .popup__input-container_value_name {
+    margin-bottom: 28px;
   }
 }

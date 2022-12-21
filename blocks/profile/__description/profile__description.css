@@ -1,5 +1,5 @@
 .profile__description {
-  margin: 0;
+  max-width: 450px;
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -7,11 +7,12 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  margin: 0;
 }
 
 @media screen and (max-width: 768px) {
   .profile__description {
-    font-weight: 400;
+    max-width: 282px;
     font-size: 14px;
     line-height: 17px;
     margin: 0 auto 30px;
