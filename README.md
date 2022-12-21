@@ -10,4 +10,4 @@
 ## Проект реализован с использованием технологий HTML, CSS (grid, flex) и адаптивной вёрстки.
 ***
 Работу выполнила Кручинкина Анастасия.
-[Ссылка на сайт](https://a-kina00.github.io/russian-travel/)
+[Ссылка на сайт](https://a-kina00.github.io/mesto-project/)
