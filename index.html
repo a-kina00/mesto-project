@@ -44,7 +44,7 @@
           <img class="card__img" src="./images/edoras.jpg" alt="Эдорас">
           <div class="card__info">
             <h2 class="card__title">Эдорас</h2>
-            <button class="card__like card__like_active" type="button" value="like"></button>
+            <button class="card__like" type="button" value="like"></button>
           </div>
         </li>
         <li class="card">
@@ -70,21 +70,21 @@
         </li>
       </ul>
     </section>
-
-    <div class="popup">
-      <div class="popup__container">
-        <button class="popup__close button" type="button"></button>
-        <h2 class="popup__content-heading">Редактировать профиль</h2>
-        <form class="popup__content" name="profile-new-content">
-          <input class="popup__input-container popup__input-container_value_name" type="text" name="new-name"
-            value="Гэндальф Серый" placeholder="Введите новое имя">
-          <input class="popup__input-container popup__input-container_value_signature" type="text" name="new-signature"
-            value="Исследователь Средиземья" placeholder="Введите статус">
-          <button type="submit" class="popup__save-button button">Сохранить</button>
-        </form>
-      </div>
-    </div>
   </main>
+
+  <div class="popup">
+    <div class="popup__container">
+      <button class="popup__close button" type="button"></button>
+      <h2 class="popup__content-heading">Редактировать профиль</h2>
+      <form class="popup__content" name="profile-new-content">
+        <input class="popup__input-container popup__input-container_value_name" type="text" name="new-name"
+          value="Гэндальф Серый" placeholder="Введите новое имя">
+        <input class="popup__input-container popup__input-container_value_signature" type="text" name="new-signature"
+          value="Исследователь Средиземья" placeholder="Введите статус">
+        <button type="submit" class="popup__save-button button">Сохранить</button>
+      </form>
+    </div>
+  </div>
 
   <footer class="footer section">
     <p class="footer__signature">&copy; 2022 Mesto Russia</p>
