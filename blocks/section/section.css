@@ -1,8 +1,8 @@
 .section {
-  max-width: 880px;
+  width: 880px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 896px) {
   .section {
     max-width: 100%;
     margin: 0 19px 0;

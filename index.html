@@ -13,76 +13,78 @@
     <img class="header__logo" src="./images/logo.svg" alt="Логотип">
   </header>
 
-  <section class="profile section">
-    <img class="profile__img" src="./images/image.jpg" alt="Аватар">
-    <div class="profile__info">
-      <h1 class="profile__name">Гэндальф Серый</h1>
-      <button class="profile__edit-button button" type="button" value=""></button>
-      <p class="profile__description">Исследователь Средиземья</p>
-    </div>
-    <button class="profile__add-button button" type="button" value=""></button>
-  </section>
+  <main class="page">
+    <section class="profile section">
+      <img class="profile__img" src="./images/image.jpg" alt="Аватар">
+      <div class="profile__info">
+        <h1 class="profile__name">Гэндальф Серый</h1>
+        <button class="profile__edit-button button" type="button" value=""></button>
+        <p class="profile__description">Исследователь Средиземья</p>
+      </div>
+      <button class="profile__add-button button" type="button" value=""></button>
+    </section>
 
-  <section>
-    <ul class="cards section">
-      <li class="card">
-        <img class="card__img" src="./images/shir.jpg" alt="Шир">
-        <div class="card__info">
-          <h2 class="card__title">Шир</h2>
-          <button class="card__like" type="button" value="like"></button>
-        </div>
-      </li>
-      <li class="card">
-        <img class="card__img" src="./images/rivendell.jpg" alt="Ривенделл">
-        <div class="card__info">
-          <h2 class="card__title">Ривенделл</h2>
-          <button class="card__like" type="button" value="like"></button>
-        </div>
-      </li>
-      <li class="card">
-        <img class="card__img" src="./images/rohan.jpg" alt="Крепость Рохан">
-        <div class="card__info">
-          <h2 class="card__title">Столица Рохана</h2>
-          <button class="card__like" type="button" value="like"></button>
-        </div>
-      </li>
-      <li class="card">
-        <img class="card__img" src="./images/dol_guldur.jpg" alt="Дол Гулдур">
-        <div class="card__info">
-          <h2 class="card__title">Дол Гулдур</h2>
-          <button class="card__like" type="button" value="like"></button>
-        </div>
-      </li>
-      <li class="card">
-        <img class="card__img" src="./images/minas_tirit.png" alt="Минас Тирит">
-        <div class="card__info">
-          <h2 class="card__title">Минас Тирит</h2>
-          <button class="card__like" type="button" value="like"></button>
-        </div>
-      </li>
-      <li class="card">
-        <img class="card__img" src="./images/mordor.jpg" alt="Мордор">
-        <div class="card__info">
-          <h2 class="card__title">Мордор</h2>
-          <button class="card__like" type="button" value="like"></button>
-        </div>
-      </li>
-    </ul>
-  </section>
+    <section class="section">
+      <ul class="cards">
+        <li class="card">
+          <img class="card__img" src="./images/shir.jpg" alt="Шир">
+          <div class="card__info">
+            <h2 class="card__title">Шир</h2>
+            <button class="card__like" type="button" value="like"></button>
+          </div>
+        </li>
+        <li class="card">
+          <img class="card__img" src="./images/rivendell.jpg" alt="Ривенделл">
+          <div class="card__info">
+            <h2 class="card__title">Ривенделл</h2>
+            <button class="card__like" type="button" value="like"></button>
+          </div>
+        </li>
+        <li class="card">
+          <img class="card__img" src="./images/edoras.jpg" alt="Эдорас">
+          <div class="card__info">
+            <h2 class="card__title">Эдорас</h2>
+            <button class="card__like card__like_active" type="button" value="like"></button>
+          </div>
+        </li>
+        <li class="card">
+          <img class="card__img" src="./images/dol_guldur.jpg" alt="Дол Гулдур">
+          <div class="card__info">
+            <h2 class="card__title">Дол Гулдур</h2>
+            <button class="card__like" type="button" value="like"></button>
+          </div>
+        </li>
+        <li class="card">
+          <img class="card__img" src="./images/minas_tirit.png" alt="Минас Тирит">
+          <div class="card__info">
+            <h2 class="card__title">Минас Тирит</h2>
+            <button class="card__like" type="button" value="like"></button>
+          </div>
+        </li>
+        <li class="card">
+          <img class="card__img" src="./images/mordor.jpg" alt="Мордор">
+          <div class="card__info">
+            <h2 class="card__title">Мордор</h2>
+            <button class="card__like" type="button" value="like"></button>
+          </div>
+        </li>
+      </ul>
+    </section>
 
-  <div class="popup">
-    <div class="popup__container">
-      <button class="popup__close button" type="button"></button>
-      <h2 class="popup__content-heading">Редактировать профиль</h2>
-      <form class="popup__content" name="profile-new-content">
-        <input class="popup__input-container popup__input-container_value_name" type="text" name="new-name"
-          value="Гэндальф Серый" placeholder="Введите новое имя">
-        <input class="popup__input-container popup__input-container_value_signature" type="text" name="new-signature"
-          value="Исследователь Средиземья" placeholder="Введите статус">
-        <button type="button" class="popup__save-button button">Сохранить</button>
-      </form>
+    <div class="popup">
+      <div class="popup__container">
+        <button class="popup__close button" type="button"></button>
+        <h2 class="popup__content-heading">Редактировать профиль</h2>
+        <form class="popup__content" name="profile-new-content">
+          <input class="popup__input-container popup__input-container_value_name" type="text" name="new-name"
+            value="Гэндальф Серый" placeholder="Введите новое имя">
+          <input class="popup__input-container popup__input-container_value_signature" type="text" name="new-signature"
+            value="Исследователь Средиземья" placeholder="Введите статус">
+          <button type="submit" class="popup__save-button button">Сохранить</button>
+        </form>
+      </div>
     </div>
-  </div>
+  </main>
 
   <footer class="footer section">
     <p class="footer__signature">&copy; 2022 Mesto Russia</p>
