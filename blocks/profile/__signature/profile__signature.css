@@ -1,4 +1,4 @@
-.profile__description {
+.profile__signature {
   max-width: 450px;
   font-style: normal;
   font-weight: 400;
@@ -11,7 +11,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  .profile__description {
+  .profile__signature {
     max-width: 260px;
     font-size: 14px;
     line-height: 17px;

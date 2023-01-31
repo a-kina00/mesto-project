@@ -18,75 +18,69 @@
       <img class="profile__img" src="./images/image.jpg" alt="Аватар">
       <div class="profile__info">
         <h1 class="profile__name">Гэндальф Серый</h1>
-        <button class="profile__edit-button button" type="button" value=""></button>
-        <p class="profile__description">Исследователь Средиземья</p>
+        <button class="profile__edit-button button" type="button" value="" data-path="editProfile"></button>
+        <p class="profile__signature">Исследователь Средиземья</p>
       </div>
-      <button class="profile__add-button button" type="button" value=""></button>
+      <button class="profile__add-button button" type="button" value="" data-path="addCard"></button>
     </section>
 
     <section class="section">
+
+      <template id="card">
+        <li class="card">
+          <img class="card__img" src="" alt="">
+          <div class="card__info">
+            <h2 class="card__title">Card Title</h2>
+            <button class="card__like" type="button" value="like"></button>
+            <button class="card__trash" type="button" value="trash" ></button>
+          </div>
+        </li>
+      </template>
+
       <ul class="cards">
-        <li class="card">
-          <img class="card__img" src="./images/shir.jpg" alt="Шир">
-          <div class="card__info">
-            <h2 class="card__title">Шир</h2>
-            <button class="card__like" type="button" value="like"></button>
-          </div>
-        </li>
-        <li class="card">
-          <img class="card__img" src="./images/rivendell.jpg" alt="Ривенделл">
-          <div class="card__info">
-            <h2 class="card__title">Ривенделл</h2>
-            <button class="card__like" type="button" value="like"></button>
-          </div>
-        </li>
-        <li class="card">
-          <img class="card__img" src="./images/edoras.jpg" alt="Эдорас">
-          <div class="card__info">
-            <h2 class="card__title">Эдорас</h2>
-            <button class="card__like" type="button" value="like"></button>
-          </div>
-        </li>
-        <li class="card">
-          <img class="card__img" src="./images/dol_guldur.jpg" alt="Дол Гулдур">
-          <div class="card__info">
-            <h2 class="card__title">Дол Гулдур</h2>
-            <button class="card__like" type="button" value="like"></button>
-          </div>
-        </li>
-        <li class="card">
-          <img class="card__img" src="./images/minas_tirit.png" alt="Минас Тирит">
-          <div class="card__info">
-            <h2 class="card__title">Минас Тирит</h2>
-            <button class="card__like" type="button" value="like"></button>
-          </div>
-        </li>
-        <li class="card">
-          <img class="card__img" src="./images/mordor.jpg" alt="Мордор">
-          <div class="card__info">
-            <h2 class="card__title">Мордор</h2>
-            <button class="card__like" type="button" value="like"></button>
-          </div>
-        </li>
       </ul>
     </section>
   </main>
 
-  <div class="popup">
+  <div class="popup" data-target="editProfile">
     <div class="popup__container">
       <button class="popup__close button" type="button"></button>
       <h2 class="popup__content-heading">Редактировать профиль</h2>
       <form class="popup__content" name="profile-new-content">
         <input class="popup__input-container popup__input-container_value_name" type="text" name="new-name"
-          value="Гэндальф Серый" placeholder="Введите новое имя">
+          value="" placeholder="Введите новое имя">
         <input class="popup__input-container popup__input-container_value_signature" type="text" name="new-signature"
-          value="Исследователь Средиземья" placeholder="Введите статус">
-        <button type="submit" class="popup__save-button button">Сохранить</button>
+          value="" placeholder="Введите статус">
+        <button id="saveBtn" type="submit" class="popup__save-button button" onclick="event.preventDefault()">Сохранить</button>
       </form>
     </div>
+  </div>
+
+  <div class="popup" data-target="addCard">
+    <div class="popup__container">
+      <button class="popup__close button" type="button"></button>
+      <h2 class="popup__content-heading">Новое место</h2>
+      <form class="popup__content" name="profile-new-content">
+        <input class="popup__input-container popup__input-container_value_name" type="text" name="new-name"
+          value="" placeholder="Название">
+        <input class="popup__input-container popup__input-container_value_photo" type="text" name="new-photo"
+          value="" placeholder="Ссылка на картинку">
+        <button id="addBtn" type="submit" class="popup__save-button button" onclick="event.preventDefault()">Создать</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="popup popup_dark-background" id="popup__photo">
+      <figure class="popup__figure">
+        <button class="popup__close button" type="button"></button>
+        <img class="popup__image" src="" alt="Фотография">
+        <figcaption class="popup__figure__caption">Софийский собор</figcaption>
+      </figure>
   </div>
 
   <footer class="footer section">
     <p class="footer__signature">&copy; 2022 Mesto Russia</p>
   </footer>
+
+  <script src="./script.js"></script>
 </body>
