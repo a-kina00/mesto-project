@@ -47,12 +47,17 @@ closeBtns.forEach((button) => {
 const cards = document.querySelector('.cards');
 const cardTemplate = document.querySelector('#card').content;
 
-cards.prepend(createCard("./images/mordor.jpg", 'Мордор'))
-cards.prepend(createCard("./images/minas_tirit.png", 'Минас Тирит'))
-cards.prepend(createCard("./images/dol_guldur.jpg", 'Дол Гулдур'))
-cards.prepend(createCard("./images/edoras.jpg", 'Эдорас'))
-cards.prepend(createCard("./images/rivendell.jpg", 'Ривенделл'))
-cards.prepend(createCard("./images/shir.jpg", 'Шир'))
+
+const initialCards = [["./images/mordor.jpg", 'Мордор'],
+["./images/minas_tirit.png", 'Минас Тирит'],
+["./images/dol_guldur.jpg", 'Дол Гулдур'],
+["./images/edoras.jpg", 'Эдорас'],
+["./images/rivendell.jpg", 'Ривенделл'],
+["./images/shir.jpg", 'Шир']]
+
+initialCards.forEach((card) => {
+  cards.prepend(createCard(card[0, 0], card[0, 1]))
+})
 
 const submitCard = addCardPopup.querySelector('.popup__content');
 let deleteBtns = document.querySelectorAll('.card__trash');
