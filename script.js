@@ -1,24 +1,29 @@
 const popup = document.querySelectorAll('.popup');
+
 const editPopup = document.querySelector('[data-target=editProfile]');
-const addCardPopup = document.querySelector('[data-target=addCard]');
-const photoPopup = document.querySelector('popup__photo');
-
-
-// СИНХРОНИЗАЦИЯ ИНФОРМАЦИИ СО СТРАНИЦЫ С ИНФОРМАЦИЕЙ В ПОПАПЕ
-const profileName = document.querySelector('.profile__name');
-const profileSignature = document.querySelector('.profile__signature');
 const editName = editPopup.querySelector('.popup__input-container_value_name');
 const editSignature = editPopup.querySelector('.popup__input-container_value_signature');
 
-editName.setAttribute('value', profileName.textContent);
-editSignature.setAttribute('value', profileSignature.textContent);
+const addCardPopup = document.querySelector('[data-target=addCard]');
+
+const photoPopup = document.querySelector('#popup__photo');
+const photoImg = photoPopup.querySelector('.popup__image');
+const photoCaption = photoPopup.querySelector('.popup__figure__caption');
+
+const profileName = document.querySelector('.profile__name');
+const profileSignature = document.querySelector('.profile__signature');
 
 
 // ОТКРЫТИЕ ПОПАПОВ
 const editBtn = document.querySelector('.profile__edit-button');
 const addBtn = document.querySelector('.profile__add-button');
 
-editBtn.addEventListener('click', () => { findRelation(editBtn) });
+editBtn.addEventListener('click', () => {
+  findRelation(editBtn)
+  editName.setAttribute('value', profileName.textContent);
+  editSignature.setAttribute('value', profileSignature.textContent);
+});
+
 addBtn.addEventListener('click', () => { findRelation(addBtn) });
 
 function findRelation(e) {
@@ -59,10 +64,8 @@ initialCards.forEach((card) => {
   cards.prepend(createCard(card[0, 0], card[0, 1]))
 })
 
+
 const submitCard = addCardPopup.querySelector('.popup__content');
-let deleteBtns = document.querySelectorAll('.card__trash');
-let likeBtns = document.querySelectorAll('.card__like');
-let cardBtns = document.querySelectorAll('.card');
 
 function createCard(cardSrc, cardText) {
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
@@ -79,9 +82,6 @@ function createCard(cardSrc, cardText) {
 
   const currentPhoto = cardElement.querySelector('.card__img')
   const currentTitle = cardElement.querySelector('.card__title').textContent
-  const photoPopup = document.querySelector('#popup__photo')
-  const photoImg = photoPopup.querySelector('.popup__image')
-  const photoCaption = photoPopup.querySelector('.popup__figure__caption')
 
   currentPhoto.addEventListener('click', () => {
     openPopup(photoPopup);
