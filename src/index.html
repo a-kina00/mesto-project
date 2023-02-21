@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Место</title>
+  <link rel="stylesheet" href="../pages/index.css">
+</head>
+
+<body class="page">
+  <header class="header section">
+    <img class="header__logo" src="../images/logo.svg" alt="Логотип">
+  </header>
+
+  <main class="page">
+    <section class="profile section">
+      <img class="profile__img" src="../images/image.jpg" alt="Аватар">
+      <div class="profile__info">
+        <h1 class="profile__name">Гэндальф Серый</h1>
+        <button class="profile__edit-button button" type="button" value="" data-path="editProfile"></button>
+        <p class="profile__signature">Исследователь Средиземья</p>
+      </div>
+      <button class="profile__add-button button" type="button" value="" data-path="addCard"></button>
+    </section>
+
+    <section class="section">
+
+      <template id="card">
+        <li class="card">
+          <img class="card__img" src="" alt="">
+          <div class="card__info">
+            <h2 class="card__title">Card Title</h2>
+            <button class="card__like" type="button" value="like"></button>
+            <button class="card__trash" type="button" value="trash"></button>
+          </div>
+        </li>
+      </template>
+
+      <ul class="cards">
+      </ul>
+    </section>
+  </main>
+
+  <div class="popup" data-target="editProfile">
+    <div class="popup__container">
+      <button class="popup__close button" type="button"></button>
+      <h2 class="popup__content-heading">Редактировать профиль</h2>
+      <form class="popup__content" name="profileNewContent">
+        <input id="user-name" class="popup__input-container popup__input-container_value_name" type="text"
+          name="newName" value="" placeholder="Введите новое имя" minlength="2" maxlength="40" required novalidate>
+        <span class="popup__input-container-error_active user-name-error"></span>
+        <input id="user-signature" class="popup__input-container popup__input-container_value_signature" type="text"
+          name="new-signature" value="" placeholder="Введите статус" minlength="2" maxlength="200" required novalidate>
+        <span class="popup__input-container-error_active user-signature-error"></span>
+        <button id="saveBtn" type="submit" class="popup__save-button button">Сохранить</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="popup" data-target="addCard">
+    <div class="popup__container">
+      <button class="popup__close button" type="button"></button>
+      <h2 class="popup__content-heading">Новое место</h2>
+      <form class="popup__content" name="profile-new-card">
+        <input id="photo-name" class="popup__input-container popup__input-container_value_name" type="text"
+          name="photo-name" value="" placeholder="Название" minlength="2" maxlength="30" required novalidate>
+        <span class="popup__input-container-error_active photo-name-error"></span>
+        <input id="photo-url" class="popup__input-container popup__input-container_value_photo" type="url"
+          name="photo-url" value="" placeholder="Ссылка на картинку" required novalidate>
+        <span class="popup__input-container-error_active photo-url-error"></span>
+        <button id="addBtn" type="submit" class="popup__save-button button">Создать</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="popup popup_dark-background" id="popup__photo">
+    <figure class="popup__figure">
+      <button class="popup__close button" type="button"></button>
+      <img class="popup__image" src="" alt="Фотография">
+      <figcaption class="popup__figure__caption"></figcaption>
+    </figure>
+  </div>
+
+  <footer class="footer section">
+    <p class="footer__signature">&copy; 2022 Mesto Russia</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
