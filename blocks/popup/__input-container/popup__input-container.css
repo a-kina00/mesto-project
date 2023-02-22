@@ -15,8 +15,3 @@
 .popup__input-container:focus {
   outline-color: rgba(0, 0, 0, .2);
 }
-
-.popup__input-container:invalid {
-  opacity: .3;
-  border-bottom: 1px solid #FF0000;
-}
