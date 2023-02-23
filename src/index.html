@@ -47,10 +47,14 @@
       <h2 class="popup__content-heading">Редактировать профиль</h2>
       <form class="popup__content" name="profileNewContent">
         <input id="user-name" class="popup__input-container popup__input-container_value_name" type="text"
-          name="newName" value="" placeholder="Введите новое имя" minlength="2" maxlength="40" required novalidate>
+          name="newName" value="" placeholder="Введите новое имя" minlength="2" maxlength="40" pattern="^[a-zA-Z]+$"
+          data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
+          required novalidate>
         <span class="popup__input-container-error_active user-name-error"></span>
         <input id="user-signature" class="popup__input-container popup__input-container_value_signature" type="text"
-          name="new-signature" value="" placeholder="Введите статус" minlength="2" maxlength="200" required novalidate>
+          name="new-signature" value="" placeholder="Введите статус" minlength="2" maxlength="200" pattern="^[a-zA-Z]+$"
+          data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
+          required novalidate>
         <span class="popup__input-container-error_active user-signature-error"></span>
         <button id="saveBtn" type="submit" class="popup__save-button button">Сохранить</button>
       </form>
@@ -63,10 +67,13 @@
       <h2 class="popup__content-heading">Новое место</h2>
       <form class="popup__content" name="profile-new-card">
         <input id="photo-name" class="popup__input-container popup__input-container_value_name" type="text"
-          name="photo-name" value="" placeholder="Название" minlength="2" maxlength="30" required novalidate>
+          name="photo-name" value="" placeholder="Название" minlength="2" maxlength="30" pattern="^[a-zA-Z]+$"
+          data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
+          required novalidate>
         <span class="popup__input-container-error_active photo-name-error"></span>
         <input id="photo-url" class="popup__input-container popup__input-container_value_photo" type="url"
-          name="photo-url" value="" placeholder="Ссылка на картинку" required novalidate>
+          name="photo-url" value="" placeholder="Ссылка на картинку"
+          required novalidate>
         <span class="popup__input-container-error_active photo-url-error"></span>
         <button id="addBtn" type="submit" class="popup__save-button button">Создать</button>
       </form>

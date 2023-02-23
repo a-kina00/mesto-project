@@ -7,7 +7,6 @@ import { closePopup } from './modals.js';
 function setInfo() {
   editName.setAttribute('value', profileName.textContent);
   editSignature.setAttribute('value', profileSignature.textContent);
-
 }
 
 function changeInfo(nameText, signatureText) {

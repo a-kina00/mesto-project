@@ -1,10 +1,13 @@
 import {
-  popup, editBtn, addBtn, closeBtns
+  popups, editBtn, addBtn, closeBtns
 } from './const.js'
 
-function popupListener() {
+import { setInfo } from './utils.js';
+
+function setPopupListener() {
   editBtn.addEventListener('click', () => {
     findRelation(editBtn)
+    setInfo()
   });
 
   addBtn.addEventListener('click', () => { findRelation(addBtn) });
@@ -21,27 +24,29 @@ function closeListener() {
     button.addEventListener('click', () => { closePopup(button) })
   })
 
-  popup.forEach((openedPopup) => {
+  popups.forEach((openedPopup) => {
     openedPopup.addEventListener('click', (evt) => {
       if (evt.target === openedPopup) { closePopup(openedPopup) }
     })
   })
 }
 
-function pressEsc(evt) {
-  popup.forEach((openedPopup) => {
-    if (evt.key === 'Escape') { closePopup(openedPopup) }
-  })
+function closeByEscape(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened')
+    closePopup(openedPopup)
+  }
 }
 
-function openPopup(popup) {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', pressEsc)
+
+function openPopup(popups) {
+  popups.classList.add('popup_opened');
+  document.addEventListener('keydown', closeByEscape)
 }
 
 function closePopup(item) {
   item.closest('.popup').classList.remove('popup_opened');
-  document.removeEventListener('keydown', pressEsc)
+  document.removeEventListener('keydown', closeByEscape)
 }
 
-export { popupListener, openPopup, closeListener, closePopup };
+export { setPopupListener, openPopup, closeListener, closePopup };

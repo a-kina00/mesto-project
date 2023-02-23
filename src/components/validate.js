@@ -11,6 +11,12 @@ function hideInputError(popupElement, inputElement) {
 }
 
 function checkInputValidity(popupElement, inputElement) {
+  if (inputElement.validity.patternMismatch) {
+    inputElement.setCustomValidity(inputElement.dataset.errorMessage);
+  } else {
+    inputElement.setCustomValidity("");
+  }
+
   if (!inputElement.validity.valid) {
     showInputError(popupElement, inputElement, inputElement.validationMessage)
   } else {
@@ -22,7 +28,11 @@ function setEventListeners(popupElement) {
   const inputList = Array.from(popupElement.querySelectorAll('.popup__input-container'))
   const buttonElement = popupElement.querySelector('.popup__save-button')
 
-  toggleButtonState(inputList, buttonElement)
+  popupElement.addEventListener('reset', () => {
+    setTimeout(() => {
+      toggleButtonState(inputList, buttonElement), 0
+    })
+  })
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
@@ -52,8 +62,10 @@ function hasInvalidInput(popupList) {
 function toggleButtonState(inputList, buttonElement) {
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add('button_disabled')
+    buttonElement.setAttribute('disabled', '')
   } else {
     buttonElement.classList.remove('button_disabled')
+    buttonElement.removeAttribute('disabled', '')
   }
 }
 

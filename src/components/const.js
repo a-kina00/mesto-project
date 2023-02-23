@@ -1,4 +1,4 @@
-const popup = document.querySelectorAll('.popup');
+const popups = document.querySelectorAll('.popup');
 
 const editPopup = document.querySelector('[data-target=editProfile]');
 const editName = editPopup.querySelector('.popup__input-container_value_name');
@@ -51,7 +51,7 @@ const editInfo = editPopup.querySelector('.popup__content')
 
 
 export {
-  popup, editPopup, editName, editSignature, addCardPopup, submitCard,
+  popups, editPopup, editName, editSignature, addCardPopup, submitCard,
   photoPopup, photoImg, photoCaption, profileName, profileSignature,
   editBtn, addBtn, closeBtns, cards, cardTemplate, initialCards, editInfo,
   photoName, photo
