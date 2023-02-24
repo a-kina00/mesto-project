@@ -15,13 +15,18 @@ addCards();
 import { changeInfo } from './utils.js';
 
 import { enableValidation } from './validate.js';
-enableValidation();
-
+enableValidation({
+  formSelector: '.popup__container',
+  inputSelector: '.popup__input-container',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'button_disabled',
+  inputErrorClass: 'popup__input-container_error',
+  errorClass: 'popup__input-container-error_active'
+});
 
 editInfo.addEventListener('submit', (evt) => {
   evt.preventDefault()
 
   changeInfo(editName.value, editSignature.value)
-  closePopup(editPopup)
 })
 
