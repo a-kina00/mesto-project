@@ -1,5 +1,5 @@
 import {
-  popups, editBtn, addBtn, closeBtns
+  popups, editBtn, addBtn, closeBtns, editPfpBtn
 } from './const.js'
 
 import { setInfo } from './utils.js';
@@ -11,6 +11,8 @@ function setPopupListener() {
   });
 
   addBtn.addEventListener('click', () => { findRelation(addBtn) });
+
+  editPfpBtn.addEventListener('click', () => { findRelation(editPfpBtn) });
 
   function findRelation(e) {
     const path = e.getAttribute('data-path');
@@ -25,7 +27,7 @@ function closeListener() {
   })
 
   popups.forEach((openedPopup) => {
-    openedPopup.addEventListener('click', (evt) => {
+    openedPopup.addEventListener('mouseup', (evt) => {
       if (evt.target === openedPopup) { closePopup(openedPopup) }
     })
   })
@@ -37,7 +39,6 @@ function closeByEscape(evt) {
     closePopup(openedPopup)
   }
 }
-
 
 function openPopup(popups) {
   popups.classList.add('popup_opened');

@@ -1,11 +1,12 @@
 .popup__content {
   max-width: 100%;
-  margin: 36px;
+  padding-bottom: 36px;
+  margin: 36px 36px 0;
 }
 
 @media screen and (max-width: 768px) {
   .popup__content {
-    margin: 25px 22px;
+    margin: 25px 22px 0;
     overflow: hidden;
   }
 }

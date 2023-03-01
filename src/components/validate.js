@@ -47,6 +47,7 @@ function setEventListeners(popupElement, settings) {
 function enableValidation(settings) {
   const popupList = Array.from(document.querySelectorAll('.popup'))
   popupList.pop()
+  popupList.pop()
   popupList.forEach((popupElement) => {
     popupElement.addEventListener('submit', (evt) => {
       evt.preventDefault();

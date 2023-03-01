@@ -1,18 +1,18 @@
 import '../pages/index.css';
 
 import {
-  editPopup, editName, editSignature, editInfo
+  editPfp, editName, editSignature, editInfo, newPfp, submitCard, cards,
+  photo, photoName
 }
-from './const.js';
+  from './const.js';
 
-import { setPopupListener, closeListener, closePopup} from './modals.js';
-setPopupListener();
-closeListener();
+import { setPopupListener, closeListener } from './modals.js';
+setPopupListener()
+closeListener()
 
-import { addCards } from './cards.js';
-addCards();
+import { createCard } from './cards.js';
 
-import { changeInfo } from './utils.js';
+import { changeInfo, setPfp } from './utils.js';
 
 import { enableValidation } from './validate.js';
 enableValidation({
@@ -24,9 +24,43 @@ enableValidation({
   errorClass: 'popup__input-container-error_active'
 });
 
+import { setServerInfo, createServerCards, createServerCard } from './api.js'
+setServerInfo()
+createServerCards()
+
 editInfo.addEventListener('submit', (evt) => {
   evt.preventDefault()
+  renderLoading(editInfo, true)
 
   changeInfo(editName.value, editSignature.value)
 })
 
+submitCard.addEventListener('submit', (evt) => {
+  evt.preventDefault()
+  renderLoading(submitCard, true)
+
+  createServerCard(photoName.value, photo.value)
+  cards.prepend(createCard(photo.value, photoName.value))
+
+  evt.target.reset()
+})
+
+editPfp.addEventListener('submit', (evt) => {
+  evt.preventDefault()
+  renderLoading(editPfp, true)
+
+  setPfp(newPfp)
+
+  evt.target.reset()
+})
+
+function renderLoading(button, isLoading, initialText) {
+  if (isLoading) {
+    button.querySelector('.button').textContent = 'Сохранение...'
+  }
+  else {
+    button.querySelector('.button').textContent = initialText
+  }
+}
+
+export { renderLoading }

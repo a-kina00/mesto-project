@@ -1,53 +1,78 @@
 import {
-  addCardPopup, submitCard, photoPopup, photoImg, photoCaption,
-  cards, cardTemplate, initialCards, photoName, photo
+  addCardPopup, photoPopup, photoImg, photoCaption,
+  cardTemplate, delPopup, delCardBtn
 }
   from './const.js';
 
-import { openPopup, closePopup} from './modals.js';
+import { openPopup, closePopup } from './modals.js';
 
-function addCards() {
+import { id, deleteServerCard, likeServerCard, dislikeServerCard } from './api.js'
 
-  initialCards.forEach((card) => {
-    cards.prepend(createCard(card[0, 0], card[0, 1]))
-  })
+import { renderLoading } from './index.js'
 
-  function createCard(cardSrc, cardText) {
-    const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+function createCard(cardSrc, cardText, cardLikes, cardOwnerId, cardId) {
 
-    cardElement.querySelector('.card__img').src = cardSrc;
-    cardElement.querySelector('.card__img').alt = cardText;
-    cardElement.querySelector('.card__title').textContent = cardText;
+  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+  const deleteBtn = cardElement.querySelector('.card__trash');
 
-    const deleteBtn = cardElement.querySelector('.card__trash');
-    deleteBtn.addEventListener('click', () => { deleteBtn.closest('.card').remove() })
-
-    const likeBtn = cardElement.querySelector('.card__like');
-    likeBtn.addEventListener('click', () => { likeBtn.classList.toggle('card__like_active') })
-
-    const currentPhoto = cardElement.querySelector('.card__img')
-    const currentTitle = cardElement.querySelector('.card__title').textContent
-
-    currentPhoto.addEventListener('click', () => {
-      openPopup(photoPopup);
-
-      photoImg.src = currentPhoto.src
-      photoImg.alt = currentTitle
-      photoCaption.textContent = currentTitle
-    })
-
-    return cardElement
+  if (cardText.length > 15) {
+    cardElement.setAttribute('title', cardText)
   }
 
-  submitCard.addEventListener('submit', (evt) => {
-    evt.preventDefault()
+  cardElement.querySelector('.card__img').src = cardSrc;
+  cardElement.querySelector('.card__img').alt = cardText;
+  cardElement.querySelector('.card__title').textContent = cardText;
 
-    cards.prepend(createCard(photo.value, photoName.value))
+  const likeBtn = cardElement.querySelector('.card__like');
 
-    closePopup(addCardPopup)
+  if (cardLikes !== undefined) {
+    cardElement.querySelector('.card__like__value').textContent = cardLikes.length;
+    cardLikes.forEach((liker) => {
+      if (liker._id === id) {
+        likeBtn.classList.add('card__like_active')
+      }
+    })
+  } else { cardElement.querySelector('.card__like__value').textContent = '0'; }
 
-    evt.target.reset()
+  likeBtn.addEventListener('click', () => {
+    if (likeBtn.classList.contains('card__like_active')) {
+      dislikeServerCard(cardId)
+      cardElement.querySelector('.card__like__value').textContent--
+    } else {
+      likeServerCard(cardId)
+      cardElement.querySelector('.card__like__value').textContent++
+    }
+    likeBtn.classList.toggle('card__like_active')
   })
+
+  const currentPhoto = cardElement.querySelector('.card__img')
+  const currentTitle = cardElement.querySelector('.card__title').textContent
+
+  currentPhoto.addEventListener('click', () => {
+    openPopup(photoPopup);
+
+    photoImg.src = currentPhoto.src
+    photoImg.alt = currentTitle
+    photoCaption.textContent = currentTitle
+  })
+
+  if ((cardOwnerId === id) || (cardLikes === undefined)) {
+    deleteBtn.classList.remove('card__trash_disabled');
+    deleteBtn.addEventListener('click', () => {
+      openPopup(delPopup)
+      delCardBtn.addEventListener('click', () => {
+
+        renderLoading(delPopup, true)
+
+        deleteServerCard(cardId)
+        deleteBtn.closest('.card').remove()
+        closePopup(delPopup)
+      })
+    })
+  }
+
+  return cardElement
 }
 
-export {addCards};
+
+export { createCard };
