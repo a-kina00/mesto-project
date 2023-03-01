@@ -1,6 +1,5 @@
 import {
-  addCardPopup, photoPopup, photoImg, photoCaption,
-  cardTemplate, delPopup, delCardBtn
+  photoPopup, photoImg, photoCaption, cardTemplate, delPopup, delCardBtn
 }
   from './const.js';
 

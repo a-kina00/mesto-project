@@ -1,9 +1,5 @@
 import {
-  popups, editPopup, editName, editSignature, addCardPopup, submitCard,
-  photoPopup, photoImg, photoCaption, profileName, profileSignature,
-  editBtn, addBtn, closeBtns, cards, cardTemplate, editInfo,
-  photoName, photo, editPfpPopup, newPfp, editPfpBtn, profilePicture, editPfp,
-  delPopup, delCardBtn
+  editPopup, editName, editSignature, profileName, profileSignature, profilePicture
 }
 from './const.js';
 
