@@ -17,7 +17,8 @@ const photoImg = photoPopup.querySelector('.popup__image');
 const photoCaption = photoPopup.querySelector('.popup__figure__caption');
 
 const delPopup = document.querySelector('#delCard');
-const delCardBtn = delPopup.querySelector('.popup__save-button')
+const delPopupContent = delPopup.querySelector('.popup__content');
+const delCardBtn = delPopupContent.querySelector('.popup__save-button')
 
 const profileName = document.querySelector('.profile__name');
 const profileSignature = document.querySelector('.profile__signature');
@@ -40,11 +41,19 @@ const profilePicture = document.querySelector('.profile__img');
 const photoName = addCardPopup.querySelector('.popup__input-container_value_name');
 const photo = addCardPopup.querySelector('.popup__input-container_value_photo');
 
+const config = {
+  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-21',
+  headers: {
+    authorization: 'de8fea61-ac5b-4c42-a352-8c78fb2afa7a',
+    'Content-Type': 'application/json'
+  }
+}
+
 
 export {
   popups, editPopup, editName, editSignature, addCardPopup, submitCard,
   photoPopup, photoImg, photoCaption, profileName, profileSignature,
   editBtn, addBtn, closeBtns, cards, cardTemplate, editInfo,
   photoName, photo, editPfpPopup, newPfp, editPfpBtn, profilePicture, editPfp,
-  delPopup, delCardBtn
+  delPopup, delCardBtn, delPopupContent, config
 }

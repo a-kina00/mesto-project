@@ -1,13 +1,13 @@
 import {
-  photoPopup, photoImg, photoCaption, cardTemplate, delPopup, delCardBtn
+  photoPopup, photoImg, photoCaption, cardTemplate, delPopup, delCardBtn, delPopupContent
 }
   from './const.js';
 
 import { openPopup, closePopup } from './modals.js';
 
-import { id, deleteServerCard, likeServerCard, dislikeServerCard } from './api.js'
+import { deleteServerCard, likeServerCard, dislikeServerCard } from './api.js'
 
-import { renderLoading } from './index.js'
+import { renderLoading, id } from './index.js'
 
 function createCard(cardSrc, cardText, cardLikes, cardOwnerId, cardId) {
 
@@ -58,15 +58,8 @@ function createCard(cardSrc, cardText, cardLikes, cardOwnerId, cardId) {
   if ((cardOwnerId === id) || (cardLikes === undefined)) {
     deleteBtn.classList.remove('card__trash_disabled');
     deleteBtn.addEventListener('click', () => {
-      openPopup(delPopup)
-      delCardBtn.addEventListener('click', () => {
-
-        renderLoading(delPopup, true)
-
-        deleteServerCard(cardId)
-        deleteBtn.closest('.card').remove()
-        closePopup(delPopup)
-      })
+      deleteServerCard(cardId)
+      deleteBtn.closest('.card').remove()
     })
   }
 
