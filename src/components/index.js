@@ -5,7 +5,7 @@ import {
   photoPopup, photoImg, photoCaption, profileName, profileSignature,
   editBtn, addBtn, closeBtns, cards, cardTemplate, editInfo,
   photoName, photo, editPfpPopup, newPfp, editPfpBtn, profilePicture, editPfp,
-  delPopup, delCardBtn, config
+  delPopup, delCardBtn, saveNewInfoBtn, submitingCardBtn, confirmNewPfpBtn, config
 }
   from './const.js';
 
@@ -16,7 +16,7 @@ closeListener()
 
 import { createCard } from './cards.js';
 
-import { changeInfo, setPfp } from './utils.js';
+import { changeInfo } from './utils.js';
 
 import { enableValidation } from './validate.js';
 
@@ -29,31 +29,23 @@ enableValidation({
   errorClass: 'popup__input-container-error_active'
 });
 
-import { setServerInfo, createServerCards, createServerCard } from './api.js'
+import { setServerInfo, createServerCards, createServerCard, setServerPfp } from './api.js'
 
 let id = ''
 
-// подргужаем информацию о пользователе с сервера
+// подргужаем информацию о пользователе и карточках с сервера
 
-setServerInfo()
-  .then((result) => {
-    changeInfo(result.name, result.about)
-    profilePicture.src = result.avatar
-    id = result._id
-  })
+Promise.all([setServerInfo(), createServerCards()])
+  .then(([userData, serverCards]) => {
+    changeInfo(userData.name, userData.about)
+    profilePicture.src = userData.avatar
+    id = userData._id
 
-  .catch((err) => {
-    console.log(err);
-  });
-
-// подргужаем карточки с сервера
-
-createServerCards()
-  .then((result) => {
-    result.forEach((card) => {
+    serverCards.forEach((card) => {
       cards.append(createCard(card.link, card.name, card.likes, card.owner._id, card._id))
     })
   })
+
   .catch((err) => {
     console.log(err);
   });
@@ -63,10 +55,10 @@ createServerCards()
 function renderLoading(button, isLoading, buttonText = 'Сохранить', loadingText = 'Сохранение...') {
 
   if (isLoading) {
-    button.querySelector('.button').textContent = loadingText
+    button.textContent = loadingText
   }
   else {
-    button.querySelector('.button').textContent = buttonText
+    button.textContent = buttonText
   }
 }
 
@@ -74,7 +66,7 @@ function renderLoading(button, isLoading, buttonText = 'Сохранить', loa
 
 editInfo.addEventListener('submit', (evt) => {
   evt.preventDefault()
-  renderLoading(editInfo, true)
+  renderLoading(saveNewInfoBtn, true)
 
   changeInfo(editName.value, editSignature.value)
 })
@@ -83,30 +75,44 @@ editInfo.addEventListener('submit', (evt) => {
 
 submitCard.addEventListener('submit', (evt) => {
   evt.preventDefault()
-  renderLoading(submitCard, true, 'Создать', 'Cоздание...')
+  renderLoading(submitingCardBtn, true, 'Создать', 'Cоздание...')
 
   createServerCard(photoName.value, photo.value)
     .then((result) => {
       cards.prepend(createCard(result.link, result.name, result.likes, result.owner._id, result._id))
+      closePopup(submitCard)
+      evt.target.reset()
+    })
+
+    .catch((err) => {
+      console.log(err);
     })
 
     .finally(() => {
-      renderLoading(submitCard, false, 'Создать', 'Создать', 'Cоздание...')
-      closePopup(submitCard)
+      renderLoading(submitingCardBtn, false, 'Создать', 'Создать', 'Cоздание...')
     })
-
-  evt.target.reset()
 })
 
 // нажатие на изменение аватара
 
 editPfp.addEventListener('submit', (evt) => {
   evt.preventDefault()
-  renderLoading(editPfp, true)
+  renderLoading(confirmNewPfpBtn, true)
 
-  setPfp(newPfp)
+  setServerPfp(newPfp.value)
+    .then((result) => {
+      profilePicture.src = result.avatar
+      closePopup(editPfpPopup)
+      evt.target.reset()
+    })
 
-  evt.target.reset()
+    .catch((err) => {
+      console.log(err);
+    })
+
+    .finally(() => {
+      renderLoading(confirmNewPfpBtn, false)
+    })
 })
 
 export { renderLoading, id }

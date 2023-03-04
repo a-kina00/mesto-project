@@ -1,4 +1,4 @@
-import { profileName, profileSignature, config } from './const.js';
+import { config } from './const.js';
 
 import { request } from './utils.js';
 
@@ -15,20 +15,20 @@ function deleteServerCard(cardId) {
 }
 
 function likeServerCard(cardId) {
-  request(`/cards/likes/${cardId}`, { method: 'PUT', headers: config.headers })
+  return request(`/cards/likes/${cardId}`, { method: 'PUT', headers: config.headers })
 }
 
 function dislikeServerCard(cardId) {
-  request(`/cards/likes/${cardId}`, { method: 'DELETE', headers: config.headers })
+  return request(`/cards/likes/${cardId}`, { method: 'DELETE', headers: config.headers })
 }
 
-function changeServerInfo() {
+function changeServerInfo(newName, newSignature) {
   return request('/users/me', {
     method: 'PATCH',
     headers: config.headers,
     body: JSON.stringify({
-      name: profileName.textContent.toString(),
-      about: profileSignature.textContent.toString()
+      name: newName.toString(),
+      about: newSignature.toString()
     })
   })
 }

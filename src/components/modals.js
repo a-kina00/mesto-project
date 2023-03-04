@@ -1,23 +1,23 @@
 import {
-  popups, editBtn, addBtn, closeBtns, editPfpBtn
+  popups, editPopup, addCardPopup, editBtn, addBtn, closeBtns,
+  editPfpPopup, editPfpBtn, editName, editSignature, profileName, profileSignature
 } from './const.js'
 
-import { setInfo } from './utils.js';
+function fillProfileInputs() {
+  editName.setAttribute('value', profileName.textContent);
+  editSignature.setAttribute('value', profileSignature.textContent);
+}
 
 function setPopupListener() {
   editBtn.addEventListener('click', () => {
-    findRelation(editBtn)
-    setInfo()
+    openPopup(editPopup)
+    fillProfileInputs()
   });
 
-  addBtn.addEventListener('click', () => { findRelation(addBtn) });
+  addBtn.addEventListener('click', () => { openPopup(addCardPopup) });
 
-  editPfpBtn.addEventListener('click', () => { findRelation(editPfpBtn) });
+  editPfpBtn.addEventListener('click', () => { openPopup(editPfpPopup) });
 
-  function findRelation(e) {
-    const path = e.getAttribute('data-path');
-    openPopup(document.querySelector(`[data-target='${path}']`))
-  }
 }
 
 function closeListener() {

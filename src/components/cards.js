@@ -1,13 +1,13 @@
 import {
-  photoPopup, photoImg, photoCaption, cardTemplate, delPopup, delCardBtn, delPopupContent
+  photoPopup, photoImg, photoCaption, cardTemplate
 }
   from './const.js';
 
-import { openPopup, closePopup } from './modals.js';
+import { openPopup} from './modals.js';
 
 import { deleteServerCard, likeServerCard, dislikeServerCard } from './api.js'
 
-import { renderLoading, id } from './index.js'
+import { id } from './index.js'
 
 function createCard(cardSrc, cardText, cardLikes, cardOwnerId, cardId) {
 
@@ -18,33 +18,52 @@ function createCard(cardSrc, cardText, cardLikes, cardOwnerId, cardId) {
     cardElement.setAttribute('title', cardText)
   }
 
-  cardElement.querySelector('.card__img').src = cardSrc;
-  cardElement.querySelector('.card__img').alt = cardText;
+  const cardImg = cardElement.querySelector('.card__img');
+  cardImg.src = cardSrc;
+  cardImg.alt = cardText;
   cardElement.querySelector('.card__title').textContent = cardText;
 
   const likeBtn = cardElement.querySelector('.card__like');
+  let cardLikesValue = cardElement.querySelector('.card__like__value');
 
   if (cardLikes !== undefined) {
-    cardElement.querySelector('.card__like__value').textContent = cardLikes.length;
+    cardLikesValue.textContent = cardLikes.length;
     cardLikes.forEach((liker) => {
       if (liker._id === id) {
         likeBtn.classList.add('card__like_active')
       }
     })
-  } else { cardElement.querySelector('.card__like__value').textContent = '0'; }
+  } else { cardLikesValue = '0'; }
 
   likeBtn.addEventListener('click', () => {
     if (likeBtn.classList.contains('card__like_active')) {
       dislikeServerCard(cardId)
-      cardElement.querySelector('.card__like__value').textContent--
+
+        .then((result) => {
+          cardLikesValue.textContent = result.likes.length
+          likeBtn.classList.toggle('card__like_active')
+        })
+
+        .catch((err) => {
+          console.log(err);
+        });
+
     } else {
       likeServerCard(cardId)
-      cardElement.querySelector('.card__like__value').textContent++
+
+        .then((result) => {
+          cardLikesValue.textContent = result.likes.length
+          likeBtn.classList.toggle('card__like_active')
+        })
+
+        .catch((err) => {
+          console.log(err);
+        });
     }
-    likeBtn.classList.toggle('card__like_active')
+
   })
 
-  const currentPhoto = cardElement.querySelector('.card__img')
+  const currentPhoto = cardImg
   const currentTitle = cardElement.querySelector('.card__title').textContent
 
   currentPhoto.addEventListener('click', () => {
@@ -59,7 +78,14 @@ function createCard(cardSrc, cardText, cardLikes, cardOwnerId, cardId) {
     deleteBtn.classList.remove('card__trash_disabled');
     deleteBtn.addEventListener('click', () => {
       deleteServerCard(cardId)
-      deleteBtn.closest('.card').remove()
+        .then(() => {
+          deleteBtn.closest('.card').remove()
+        })
+
+        .catch((err) => {
+          console.log(err);
+        });
+
     })
   }
 

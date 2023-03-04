@@ -1,6 +1,6 @@
 import {
   editPopup, editName, editSignature, profileName, profileSignature,
-  editInfo, editPfpPopup, profilePicture, editPfp, config
+  editInfo, editPfpPopup, profilePicture, editPfp,saveNewInfoBtn, confirmNewPfpBtn, config
 }
   from './const.js';
 
@@ -10,32 +10,23 @@ import { changeServerInfo, setServerPfp } from './api.js'
 
 import { renderLoading } from './index.js'
 
-function setInfo() {
-  editName.setAttribute('value', profileName.textContent);
-  editSignature.setAttribute('value', profileSignature.textContent);
-}
-
 function changeInfo(nameText, signatureText) {
-  profileName.textContent = nameText;
-  profileSignature.textContent = signatureText;
 
-  changeServerInfo()
-    .finally(() => {
-      renderLoading(editInfo, false)
+  changeServerInfo(nameText, signatureText)
+    .then((result) => {
+      profileName.textContent = result.name;
+      profileSignature.textContent = result.about;
       closePopup(editPopup)
     })
 
-  closePopup(editPopup);
-}
-
-function setPfp(newPfp) {
-  profilePicture.src = newPfp.value
-
-  setServerPfp(profilePicture.src)
-    .finally(() => {
-      renderLoading(editPfp, false)
-      closePopup(editPfpPopup)
+    .catch((err) => {
+      console.log(err);
     })
+
+    .finally(() => {
+      renderLoading(saveNewInfoBtn, false)
+    })
+
 }
 
 function checkResponse(res) {
@@ -46,4 +37,4 @@ function request(endpoint, options) {
   return fetch(`${config.baseUrl}${endpoint}`, options).then(checkResponse)
 }
 
-export { changeInfo, setInfo, setPfp, request }
+export { changeInfo, request }

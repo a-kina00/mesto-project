@@ -4,13 +4,16 @@ const editPopup = document.querySelector('[data-target=editProfile]');
 const editName = editPopup.querySelector('.popup__input-container_value_name');
 const editSignature = editPopup.querySelector('.popup__input-container_value_signature');
 const editInfo = editPopup.querySelector('.popup__content');
+const saveNewInfoBtn = editInfo.querySelector('.button');
 
 const addCardPopup = document.querySelector('[data-target=addCard]');
 const submitCard = addCardPopup.querySelector('.popup__content');
+const submitingCardBtn = submitCard.querySelector('.button');
 
 const editPfpPopup = document.querySelector('[data-target=editPfp]');
 const newPfp = editPfpPopup.querySelector('.popup__input-container_value_pfp');
 const editPfp = editPfpPopup.querySelector('.popup__content');
+const confirmNewPfpBtn = editPfp.querySelector('.button')
 
 const photoPopup = document.querySelector('#popup__photo');
 const photoImg = photoPopup.querySelector('.popup__image');
@@ -55,5 +58,5 @@ export {
   photoPopup, photoImg, photoCaption, profileName, profileSignature,
   editBtn, addBtn, closeBtns, cards, cardTemplate, editInfo,
   photoName, photo, editPfpPopup, newPfp, editPfpBtn, profilePicture, editPfp,
-  delPopup, delCardBtn, delPopupContent, config
+  delPopup, delCardBtn, delPopupContent, saveNewInfoBtn, submitingCardBtn,confirmNewPfpBtn, config
 }
