@@ -1,6 +1,6 @@
 {
-  "name": "yandex_praktikum",
-  "version": "1.0.0",
+  "name": "yandex.praktikum",
+  "version": "0.0.1",
   "description": "Задача сайта: представить портфолио путешественника-фотографа.",
   "main": "script.js",
   "scripts": {
@@ -28,11 +28,12 @@
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.7.2",
     "postcss-loader": "^7.0.2",
-    "webpack": "^5.75.0",
+    "webpack": "^5.76.2",
     "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
-    "core-js": "^3.28.0"
+    "core-js": "^3.28.0",
+    "jquery": "^3.6.4"
   }
 }
