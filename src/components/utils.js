@@ -1,18 +1,18 @@
 import {
   editPopup, editName, editSignature, profileName, profileSignature,
-  editInfo, editPfpPopup, profilePicture, editPfp,saveNewInfoBtn, confirmNewPfpBtn, config
+  editInfo, editPfpPopup, profilePicture, editPfp, saveNewInfoBtn, confirmNewPfpBtn, config
 }
   from './const.js';
 
 import { closePopup } from './modals.js';
 
-import { changeServerInfo, setServerPfp } from './api.js'
+import { changeServerInfo, setServerPfp, api } from './api.js'
 
 import { renderLoading } from './index.js'
 
 function changeInfo(nameText, signatureText) {
 
-  changeServerInfo(nameText, signatureText)
+  api.changeServerInfo(nameText, signatureText)
     .then((result) => {
       profileName.textContent = result.name;
       profileSignature.textContent = result.about;

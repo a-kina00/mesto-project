@@ -1,11 +1,11 @@
 import {
-  photoPopup, photoImg, photoCaption, cardTemplate
+  photoPopup, photoImg, photoCaption, cardTemplate, profileName
 }
   from './const.js';
 
-import { openPopup} from './modals.js';
+import { openPopup } from './modals.js';
 
-import { deleteServerCard, likeServerCard, dislikeServerCard } from './api.js'
+import { deleteServerCard, likeServerCard, dislikeServerCard, api } from './api.js'
 
 import { id } from './index.js'
 
@@ -37,7 +37,7 @@ function createCard(cardSrc, cardText, cardLikes, cardOwnerId, cardId) {
 
   likeBtn.addEventListener('click', () => {
     if (likeBtn.classList.contains('card__like_active')) {
-      dislikeServerCard(cardId)
+      api.dislikeServerCard(cardId)
 
         .then((result) => {
           cardLikesValue.textContent = result.likes.length
@@ -49,7 +49,7 @@ function createCard(cardSrc, cardText, cardLikes, cardOwnerId, cardId) {
         });
 
     } else {
-      likeServerCard(cardId)
+      api.likeServerCard(cardId)
 
         .then((result) => {
           cardLikesValue.textContent = result.likes.length
@@ -74,23 +74,83 @@ function createCard(cardSrc, cardText, cardLikes, cardOwnerId, cardId) {
     photoCaption.textContent = currentTitle
   })
 
-  if ((cardOwnerId === id) || (cardLikes === undefined)) {
-    deleteBtn.classList.remove('card__trash_disabled');
-    deleteBtn.addEventListener('click', () => {
-      deleteServerCard(cardId)
-        .then(() => {
-          deleteBtn.closest('.card').remove()
-        })
+  // if ((cardOwnerId === id) || (cardLikes === undefined)) {
+  //   deleteBtn.classList.remove('card__trash_disabled');
+  //   deleteBtn.addEventListener('click', () => {
+  //     api.deleteServerCard(cardId)
+  //       .then(() => {
+  //         deleteBtn.closest('.card').remove()
+  //       })
 
-        .catch((err) => {
-          console.log(err);
-        });
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
 
-    })
-  }
+  //   })
+  // }
 
   return cardElement
 }
 
-
 export { createCard };
+
+
+
+
+//
+//
+//
+//СОЗДАЁМ КАРТОЧКУ
+
+export class Card {
+  constructor(elementObj, templateSelector = 'card') {
+    this.templateSelector = templateSelector;
+    this.elementObj = elementObj;
+  }
+
+  _getElement() {
+    const cardElement = document.getElementById(`${this.templateSelector}`).content.cloneNode(true);
+    return cardElement;
+  }
+
+  generate() {
+    this._element = this._getElement();
+    this._elementDeleteButton = this._element.querySelector('.card__trash');
+    this._elementImage = this._element.querySelector('.card__img');
+    this._elementTitle = this._element.querySelector('.card__title');
+    this._setEventListeners();
+    this._elementImage.src = this.elementObj.link;
+    this._elementImage.alt = `Здесь должна быть фотография ${this.elementObj.name}`;
+    this._elementTitle.textContent = this.elementObj.name;
+    this._element.querySelector('.card__like__value').textContent = this.elementObj.likes.length;
+    if (this.elementObj.owner._id === id) {
+      this._elementDeleteButton.classList.remove('card__trash_disabled');
+    }
+    return this._element
+  }
+
+
+  _setEventListeners() {
+
+    //ПОПАП ПРЕВЬЮ
+    this._elementImage.addEventListener('click', () => {
+      openPopup(photoPopup);
+      photoImg.src = this._elementImage.src;
+      photoImg.alt = this._elementImage.alt;
+      photoCaption.textContent =  this._elementTitle
+    })
+
+    //Удаление карточки
+    this._elementDeleteButton.addEventListener('click', () => {
+      api.deleteServerCard(this.elementObj._id)
+        .then(() => {
+          this._elementDeleteButton.closest('.card').remove()
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    })
+  }
+}
+
+
