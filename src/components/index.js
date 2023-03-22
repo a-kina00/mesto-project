@@ -14,7 +14,7 @@ import { setPopupListener, closeListener, closePopup } from './modals.js';
 setPopupListener()
 closeListener()
 
-import { createCard } from './cards.js';
+import { createCard, Card } from './cards.js';
 
 import { changeInfo } from './utils.js';
 
@@ -29,20 +29,21 @@ enableValidation({
   errorClass: 'popup__input-container-error_active'
 });
 
-import { setServerInfo, createServerCards, createServerCard, setServerPfp } from './api.js'
+import { setServerInfo, createServerCards, createServerCard, setServerPfp, api } from './api.js'
 
 let id = ''
 
 // подргужаем информацию о пользователе и карточках с сервера
 
-Promise.all([setServerInfo(), createServerCards()])
+Promise.all([api.setServerInfo(), api.createServerCards()])
   .then(([userData, serverCards]) => {
     changeInfo(userData.name, userData.about)
     profilePicture.src = userData.avatar
     id = userData._id
-
     serverCards.forEach((card) => {
-      cards.append(createCard(card.link, card.name, card.likes, card.owner._id, card._id))
+      // cards.append(createCard(card.link, card.name, card.likes, card.owner._id, card._id));
+      const newCard = new Card(card);
+      cards.prepend(newCard.generate());
     })
   })
 
@@ -77,9 +78,13 @@ submitCard.addEventListener('submit', (evt) => {
   evt.preventDefault()
   renderLoading(submitingCardBtn, true, 'Создать', 'Cоздание...')
 
-  createServerCard(photoName.value, photo.value)
+  api.createServerCard(photoName.value, photo.value)
     .then((result) => {
-      cards.prepend(createCard(result.link, result.name, result.likes, result.owner._id, result._id))
+      //привязка ка объекту карточки
+      const newCardObj = result;
+      const newCard = new Card(newCardObj);
+      cards.prepend(newCard.generate());
+      // cards.prepend(createCard(result.link, result.name, result.likes, result.owner._id, result._id))
       closePopup(submitCard)
       evt.target.reset()
     })
@@ -99,7 +104,7 @@ editPfp.addEventListener('submit', (evt) => {
   evt.preventDefault()
   renderLoading(confirmNewPfpBtn, true)
 
-  setServerPfp(newPfp.value)
+  api.setServerPfp(newPfp.value)
     .then((result) => {
       profilePicture.src = result.avatar
       closePopup(editPfpPopup)
