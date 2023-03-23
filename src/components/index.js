@@ -1,5 +1,5 @@
 import '../pages/index.css';
-
+import { Section } from './section';
 import {
   popups, editPopup, editName, editSignature, addCardPopup, submitCard,
   photoPopup, photoImg, photoCaption, profileName, profileSignature,
@@ -40,13 +40,24 @@ Promise.all([api.setServerInfo(), api.createServerCards()])
     changeInfo(userData.name, userData.about)
     profilePicture.src = userData.avatar
     id = userData._id
-    serverCards.forEach((card) => {
-      // cards.append(createCard(card.link, card.name, card.likes, card.owner._id, card._id));
-      const newCard = new Card(card);
-      cards.prepend(newCard.generate());
-    })
-  })
 
+    const section = new Section({
+      items: serverCards,
+      renderer: (obj, containerSelector) => {
+        const newCard = new Card(obj);
+        containerSelector.prepend(newCard.generate());
+      }
+    },
+      'cards')
+
+    section.initialCards()
+
+    // serverCards.forEach((card) => {
+    //   // cards.append(createCard(card.link, card.name, card.likes, card.owner._id, card._id));
+    //   const newCard = new Card(card);
+    //   cards.prepend(newCard.generate());
+    // })
+  })
   .catch((err) => {
     console.log(err);
   });
@@ -80,10 +91,20 @@ submitCard.addEventListener('submit', (evt) => {
 
   api.createServerCard(photoName.value, photo.value)
     .then((result) => {
-      //привязка ка объекту карточки
+      //привязка к объекту карточки
       const newCardObj = result;
-      const newCard = new Card(newCardObj);
-      cards.prepend(newCard.generate());
+      const section = new Section({
+        items: newCardObj,
+        renderer: (obj, containerSelector) => {
+          const newCard = new Card(obj);
+          containerSelector.prepend(newCard.generate());
+        }
+      },
+        'cards')
+
+      section.addItem()
+
+      // cards.prepend(newCard.generate());
       // cards.prepend(createCard(result.link, result.name, result.likes, result.owner._id, result._id))
       closePopup(submitCard)
       evt.target.reset()
@@ -121,3 +142,7 @@ editPfp.addEventListener('submit', (evt) => {
 })
 
 export { renderLoading, id }
+
+
+
+
