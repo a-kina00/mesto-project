@@ -104,10 +104,6 @@ submitCard.addEventListener('submit', (evt) => {
 
       section.addItem()
 
-
-
-
-
       // cards.prepend(newCard.generate());
       // cards.prepend(createCard(result.link, result.name, result.likes, result.owner._id, result._id))
       closePopup(submitCard)
