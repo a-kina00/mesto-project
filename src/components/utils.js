@@ -4,7 +4,7 @@ import {
 }
   from './const.js';
 
-import { closePopup } from './modals.js';
+//import { closePopup } from './modals.js';
 
 import { changeServerInfo, setServerPfp, api } from './api.js'
 
@@ -16,7 +16,7 @@ function changeInfo(nameText, signatureText) {
     .then((result) => {
       profileName.textContent = result.name;
       profileSignature.textContent = result.about;
-      closePopup(editPopup)
+      //closePopup(editPopup)
     })
 
     .catch((err) => {

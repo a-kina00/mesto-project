@@ -3,6 +3,8 @@ import {
   editPfpPopup, editPfpBtn, editName, editSignature, profileName, profileSignature
 } from './const.js'
 
+import { Popup } from './popup.js';
+
 function fillProfileInputs() {
   editName.setAttribute('value', profileName.textContent);
   editSignature.setAttribute('value', profileSignature.textContent);
@@ -10,20 +12,30 @@ function fillProfileInputs() {
 
 function setPopupListener() {
   editBtn.addEventListener('click', () => {
-    openPopup(editPopup)
+
+    const popup = new Popup(editPopup)
+    popup.open();
     fillProfileInputs()
   });
 
-  addBtn.addEventListener('click', () => { openPopup(addCardPopup) });
+  addBtn.addEventListener('click', () => {
+    const popup = new Popup(addCardPopup)
+    popup.open();
+  });
 
-  editPfpBtn.addEventListener('click', () => { openPopup(editPfpPopup) });
+  editPfpBtn.addEventListener('click', () => {
+    const popup = new Popup(editPfpPopup)
+    popup.open();
+  });
 
 }
-
+/*
 function closeListener() {
 
   closeBtns.forEach((button) => {
-    button.addEventListener('click', () => { closePopup(button) })
+    button.addEventListener('click', () => { 
+      //closePopup(button) 
+    })
   })
 
   popups.forEach((openedPopup) => {
@@ -40,14 +52,10 @@ function closeByEscape(evt) {
   }
 }
 
-function openPopup(popups) {
-  popups.classList.add('popup_opened');
-  document.addEventListener('keydown', closeByEscape)
-}
-
 function closePopup(item) {
+  //console.log(item)
   item.closest('.popup').classList.remove('popup_opened');
   document.removeEventListener('keydown', closeByEscape)
-}
+}*/
 
-export { setPopupListener, openPopup, closeListener, closePopup };
+export { setPopupListener};

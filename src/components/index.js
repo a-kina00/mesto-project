@@ -1,5 +1,10 @@
+//console.log('!!!')
+
 import '../pages/index.css';
 import { Section } from './section';
+
+import { Popup } from './popup';
+
 import {
   popups, editPopup, editName, editSignature, addCardPopup, submitCard,
   photoPopup, photoImg, photoCaption, profileName, profileSignature,
@@ -9,10 +14,9 @@ import {
 }
   from './const.js';
 
-import { setPopupListener, closeListener, closePopup } from './modals.js';
+import { setPopupListener } from './modals.js';
 
 setPopupListener()
-closeListener()
 
 import { createCard, Card } from './cards.js';
 
@@ -106,7 +110,7 @@ submitCard.addEventListener('submit', (evt) => {
 
       // cards.prepend(newCard.generate());
       // cards.prepend(createCard(result.link, result.name, result.likes, result.owner._id, result._id))
-      closePopup(submitCard)
+      //closePopup(submitCard)
       evt.target.reset()
     })
 
@@ -128,7 +132,7 @@ editPfp.addEventListener('submit', (evt) => {
   api.setServerPfp(newPfp.value)
     .then((result) => {
       profilePicture.src = result.avatar
-      closePopup(editPfpPopup)
+      //closePopup(editPfpPopup)
       evt.target.reset()
     })
 
