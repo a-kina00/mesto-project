@@ -5,6 +5,8 @@ import {
 
 import { Popup } from './popup.js';
 
+import { PopupWithForm } from './popupWithForm';
+
 function fillProfileInputs() {
   editName.setAttribute('value', profileName.textContent);
   editSignature.setAttribute('value', profileSignature.textContent);
@@ -13,18 +15,18 @@ function fillProfileInputs() {
 function setPopupListener() {
   editBtn.addEventListener('click', () => {
 
-    const popup = new Popup(editPopup)
+    const popup = new PopupWithForm(editPopup, '')
     popup.open();
-    fillProfileInputs()
+    //fillProfileInputs();
   });
 
   addBtn.addEventListener('click', () => {
-    const popup = new Popup(addCardPopup)
+    const popup = new PopupWithForm(addCardPopup, '')
     popup.open();
   });
 
   editPfpBtn.addEventListener('click', () => {
-    const popup = new Popup(editPfpPopup)
+    const popup = new PopupWithForm(editPfpPopup, '')
     popup.open();
   });
 
@@ -58,4 +60,4 @@ function closePopup(item) {
   document.removeEventListener('keydown', closeByEscape)
 }*/
 
-export { setPopupListener};
+export { setPopupListener, fillProfileInputs};

@@ -1,9 +1,6 @@
-//console.log('!!!')
-
 import '../pages/index.css';
-import { Section } from './section';
 
-import { Popup } from './popup';
+import { Section } from './section';
 
 import {
   popups, editPopup, editName, editSignature, addCardPopup, submitCard,
@@ -18,7 +15,7 @@ import { setPopupListener } from './modals.js';
 
 setPopupListener()
 
-import { createCard, Card } from './cards.js';
+import { Card } from './cards.js';
 
 import { changeInfo } from './utils.js';
 
@@ -33,7 +30,7 @@ enableValidation({
   errorClass: 'popup__input-container-error_active'
 });
 
-import { setServerInfo, createServerCards, createServerCard, setServerPfp, api } from './api.js'
+import { api } from './api.js'
 
 let id = ''
 
@@ -56,11 +53,6 @@ Promise.all([api.setServerInfo(), api.createServerCards()])
 
     section.initialCards()
 
-    // serverCards.forEach((card) => {
-    //   // cards.append(createCard(card.link, card.name, card.likes, card.owner._id, card._id));
-    //   const newCard = new Card(card);
-    //   cards.prepend(newCard.generate());
-    // })
   })
   .catch((err) => {
     console.log(err);

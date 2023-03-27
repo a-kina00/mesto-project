@@ -11,19 +11,17 @@ export class Popup {
     open() {
         this._selector.classList.add('popup_opened');
         this._setEventListeners()
-        this._selector.addEventListener('keydown', this._handleEscClose)
-        //console.log(this._selector)
+        document.addEventListener('keydown', this._handleEscClose.bind(this))
     }
 
     close() {
         this._selector.classList.remove('popup_opened');
-        // this.popup.removeEventListener('keydown', closeByEscape)
+        document.removeEventListener('keydown', this._handleEscClose.bind(this))
     }
 
     _handleEscClose(evt) {
-        console.log(this._selector)
         if (evt.key === 'Escape') {
-            console.log("!!!")
+            this.close()
         }
     }
 
@@ -37,17 +35,3 @@ export class Popup {
         })
     }
 }
-/*
-
-
-class PopupWithForm extends Popup {
-    constructor(popupSelector, callback) {
-        this.popupSelector = super(_selector);
-        this.callback = callback;
-    }
-
-    _getInputValues() {
-        editName.setAttribute('value', profileName.textContent);
-        editSignature.setAttribute('value', profileSignature.textContent);
-    }
-}*/

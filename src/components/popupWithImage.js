@@ -10,7 +10,6 @@ export class PopupWithImage extends Popup {
         super(popupSelector);
         this._src = src;
         this._title = title;
-        console.log(src, title)
     }
 
     open() {
