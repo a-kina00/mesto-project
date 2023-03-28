@@ -44,7 +44,7 @@ Promise.all([api.setServerInfo(), api.createServerCards()])
     const section = new Section({
       items: serverCards,
       renderer: (obj, containerSelector) => {
-        const newCard = new Card(obj);
+        const newCard = new Card(obj, 'card');
         containerSelector.prepend(newCard.generate());
       }
     },
@@ -96,7 +96,7 @@ submitCard.addEventListener('submit', (evt) => {
       const section = new Section({
         items: newCardObj,
         renderer: (obj, containerSelector) => {
-          const newCard = new Card(obj);
+          const newCard = new Card(obj, 'card');
           containerSelector.prepend(newCard.generate());
         }
       },

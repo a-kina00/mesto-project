@@ -96,7 +96,7 @@ import { id } from './index.js'
 
 //СОЗДАЁМ КАРТОЧКУ
 export class Card {
-  constructor(elementObj, templateSelector = 'card') {
+  constructor(elementObj, templateSelector) {
     this.templateSelector = templateSelector;
     this.elementObj = elementObj;
   }
