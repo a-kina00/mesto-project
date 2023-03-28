@@ -1,4 +1,5 @@
 import '../pages/index.css';
+import FormValidator from "./FormValidator"
 
 import {
   popups, editPopup, editName, editSignature, addCardPopup, submitCard,
@@ -18,16 +19,48 @@ import { createCard } from './cards.js';
 
 import { changeInfo } from './utils.js';
 
-import { enableValidation } from './validate.js';
+// enableValidation({
+//   formSelector: '.popup__container',
+//   inputSelector: '.popup__input-container',
+//   submitButtonSelector: '.popup__save-button',
+//   inactiveButtonClass: '.button_disabled',
+//   inputErrorClass: '.popup__input-container_error',
+//   errorClass: 'popup__input-container-error_active'
+// });
 
-enableValidation({
-  formSelector: '.popup__container',
+const popup2 = new FormValidator({
+  formSelector: '#popup2',
   inputSelector: '.popup__input-container',
   submitButtonSelector: '.popup__save-button',
   inactiveButtonClass: 'button_disabled',
   inputErrorClass: 'popup__input-container_error',
   errorClass: 'popup__input-container-error_active'
-});
+})
+
+popup2.EnableValidation()
+
+const popup3 = new FormValidator({
+  formSelector: '#popup3',
+  inputSelector: '.popup__input-container',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'button_disabled',
+  inputErrorClass: 'popup__input-container_error',
+  errorClass: 'popup__input-container-error_active'
+})
+
+popup3.EnableValidation()
+
+const popup1 = new FormValidator({
+  formSelector: '#popup1',
+  inputSelector: '.popup__input-container',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'button_disabled',
+  inputErrorClass: 'popup__input-container_error',
+  errorClass: 'popup__input-container-error_active'
+})
+
+popup1.EnableValidation()
+
 
 import { setServerInfo, createServerCards, createServerCard, setServerPfp } from './api.js'
 
@@ -114,5 +147,10 @@ editPfp.addEventListener('submit', (evt) => {
       renderLoading(confirmNewPfpBtn, false)
     })
 })
+
+// const settings = {selectors: "123", settings: "223"}
+// const stuff = new FormValidator(settings)
+// console.log(stuff.GetSettings())
+
 
 export { renderLoading, id }
