@@ -1,12 +1,16 @@
 import { Popup } from "./popup";
 
-import { fillProfileInputs } from "./modals"
+import { fillProfileInputs } from "../modals"
+
+import { renderLoading } from '../utils/utils.js';
 
 export class PopupWithForm extends Popup {
-    constructor(popupSelector, submitCallback) {
+    constructor(popupSelector, { submitCallback }) {
         super(popupSelector);
         this.submitCallback = submitCallback;
         this.popupInputs = this._getElement().querySelectorAll('.popup__input-container');
+        this.popupForm = this._getElement().querySelector('.popup__content');
+        this.popupButton = this.popupForm.querySelector('.button');
     }
 
     _getInputValues() {
@@ -17,16 +21,19 @@ export class PopupWithForm extends Popup {
 
         return values;
     }
-/*
+
     _setEventListeners() {
         super._setEventListeners();
-        this._getElement().addEventListener('submit', (evt) => {
-            evt.preventDefault();
-            renderLoading(saveNewInfoBtn, true);
 
-            changeInfo(editName.value, editSignature.value)
-        })
-    }*/
+        this.popupForm.addEventListener('submit', (evt) => {
+            evt.preventDefault();
+            renderLoading(this.popupButton, true);
+
+            this.submitCallback(this._getInputValues());
+            this.close();
+        }, { once: true })
+
+    }
 
     open() {
         super.open()
@@ -35,6 +42,6 @@ export class PopupWithForm extends Popup {
 
     close() {
         super.close();
-        this._getElement().querySelector('.popup__content').reset()
+        this.popupForm.reset()
     }
 }

@@ -3,21 +3,17 @@ import '../pages/index.css';
 import { Section } from './section';
 
 import {
-  popups, editPopup, editName, editSignature, addCardPopup, submitCard,
-  photoPopup, photoImg, photoCaption, profileName, profileSignature,
-  editBtn, addBtn, closeBtns, cards, cardTemplate, editInfo,
-  photoName, photo, editPfpPopup, newPfp, editPfpBtn, profilePicture, editPfp,
-  delPopup, delCardBtn, saveNewInfoBtn, submitingCardBtn, confirmNewPfpBtn, config
+  profilePicture
 }
-  from './const.js';
+  from './utils/const.js';
 
 import { setPopupListener } from './modals.js';
 
 setPopupListener()
 
-import { Card } from './cards.js';
+import { Card } from './components/cards.js';
 
-import { changeInfo } from './utils.js';
+import { changeInfo } from './utils/utils';
 
 import { enableValidation } from './validate.js';
 
@@ -30,7 +26,7 @@ enableValidation({
   errorClass: 'popup__input-container-error_active'
 });
 
-import { api } from './api.js'
+import { api } from './components/api.js'
 
 let id = ''
 
@@ -58,86 +54,7 @@ Promise.all([api.setServerInfo(), api.createServerCards()])
     console.log(err);
   });
 
-// отображение загрузки
-
-function renderLoading(button, isLoading, buttonText = 'Сохранить', loadingText = 'Сохранение...') {
-
-  if (isLoading) {
-    button.textContent = loadingText
-  }
-  else {
-    button.textContent = buttonText
-  }
-}
-
-// нажатие на кнопку изменения информации о пользователе
-
-editInfo.addEventListener('submit', (evt) => {
-  evt.preventDefault()
-  renderLoading(saveNewInfoBtn, true)
-
-  changeInfo(editName.value, editSignature.value)
-})
-
-// нажатие на кнопку добавления карточки
-
-submitCard.addEventListener('submit', (evt) => {
-  evt.preventDefault()
-  renderLoading(submitingCardBtn, true, 'Создать', 'Cоздание...')
-
-  api.createServerCard(photoName.value, photo.value)
-    .then((result) => {
-      //привязка к объекту карточки
-      const newCardObj = result;
-      const section = new Section({
-        items: newCardObj,
-        renderer: (obj, containerSelector) => {
-          const newCard = new Card(obj);
-          containerSelector.prepend(newCard.generate());
-        }
-      },
-        'cards')
-
-      section.addItem()
-
-      // cards.prepend(newCard.generate());
-      // cards.prepend(createCard(result.link, result.name, result.likes, result.owner._id, result._id))
-      //closePopup(submitCard)
-      evt.target.reset()
-    })
-
-    .catch((err) => {
-      console.log(err);
-    })
-
-    .finally(() => {
-      renderLoading(submitingCardBtn, false, 'Создать', 'Создать', 'Cоздание...')
-    })
-})
-
-// нажатие на изменение аватара
-
-editPfp.addEventListener('submit', (evt) => {
-  evt.preventDefault()
-  renderLoading(confirmNewPfpBtn, true)
-
-  api.setServerPfp(newPfp.value)
-    .then((result) => {
-      profilePicture.src = result.avatar
-      //closePopup(editPfpPopup)
-      evt.target.reset()
-    })
-
-    .catch((err) => {
-      console.log(err);
-    })
-
-    .finally(() => {
-      renderLoading(confirmNewPfpBtn, false)
-    })
-})
-
-export { renderLoading, id }
+export { id }
 
 
 

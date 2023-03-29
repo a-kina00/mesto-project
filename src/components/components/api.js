@@ -1,6 +1,6 @@
-import { config } from './const.js';
+import { config } from '../utils/const.js';
 
-import { request } from './utils.js';
+import { request } from '../utils/utils.js';
 
 class Api {
   constructor(config) {
@@ -62,8 +62,4 @@ class Api {
 
 const api = new Api(config)
 
-export {
-  // setServerInfo, createServerCards, deleteServerCard, likeServerCard,
-  // dislikeServerCard, changeServerInfo, setServerPfp, createServerCard,
-  api
-}
+export { api }

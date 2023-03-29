@@ -34,7 +34,7 @@ const closeBtns = document.querySelectorAll('.popup__close');
 const cards = document.querySelector('.cards');
 const cardTemplate = document.querySelector('#card').content;
 
-import logo from '../images/logo.svg';
+import logo from '../../images/logo.svg';
 
 const mainLogo =document.querySelector('.header__logo');
 mainLogo.setAttribute('src', logo);
