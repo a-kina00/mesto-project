@@ -9,9 +9,11 @@ import { Section } from './section.js';
 
 import { Card } from './components/cards.js';
 
-import { changeInfo, renderLoading } from './utils/utils.js';
+import { renderLoading } from './utils/utils.js';
 
 import { api } from './components/api.js';
+
+import { userNameNTitle } from './index.js';
 
 function fillProfileInputs() {
   editName.setAttribute('value', profileName.textContent);
@@ -23,7 +25,7 @@ function setPopupListener() {
 
     const popup = new PopupWithForm(editPopup, {
       submitCallback: (item) => {
-        changeInfo(item["user-name"], item["user-signature"]);
+        userNameNTitle.setUserInfo(item["user-name"], item["user-signature"]);
       }
     })
     popup.open();
