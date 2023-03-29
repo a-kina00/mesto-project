@@ -1,10 +1,9 @@
 import {
-  editPopup, editName, editSignature, profileName, profileSignature,
-  editInfo, editPfpPopup, profilePicture, editPfp, saveNewInfoBtn, confirmNewPfpBtn, config
+  profileName, profileSignature, saveNewInfoBtn, config
 }
   from './const.js';
 
-import { changeServerInfo, setServerPfp, api } from './api.js'
+import { api } from './api.js'
 
 import { renderLoading } from './index.js'
 

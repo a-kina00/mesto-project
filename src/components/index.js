@@ -46,7 +46,7 @@ Promise.all([api.setServerInfo(), api.createServerCards()])
       items: serverCards,
       renderer: (obj, containerSelector) => {
         const newCard = new Card(obj);
-        containerSelector.prepend(newCard.generate());
+        containerSelector.append(newCard.generate());
       }
     },
       'cards')

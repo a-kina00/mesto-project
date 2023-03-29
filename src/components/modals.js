@@ -17,7 +17,6 @@ function setPopupListener() {
 
     const popup = new PopupWithForm(editPopup, '')
     popup.open();
-    //fillProfileInputs();
   });
 
   addBtn.addEventListener('click', () => {
@@ -31,33 +30,5 @@ function setPopupListener() {
   });
 
 }
-/*
-function closeListener() {
-
-  closeBtns.forEach((button) => {
-    button.addEventListener('click', () => { 
-      //closePopup(button) 
-    })
-  })
-
-  popups.forEach((openedPopup) => {
-    openedPopup.addEventListener('mouseup', (evt) => {
-      if (evt.target === openedPopup) { closePopup(openedPopup) }
-    })
-  })
-}
-
-function closeByEscape(evt) {
-  if (evt.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_opened')
-    closePopup(openedPopup)
-  }
-}
-
-function closePopup(item) {
-  //console.log(item)
-  item.closest('.popup').classList.remove('popup_opened');
-  document.removeEventListener('keydown', closeByEscape)
-}*/
 
 export { setPopupListener, fillProfileInputs};
