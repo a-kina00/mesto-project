@@ -1,102 +1,118 @@
 import '../pages/index.css';
 
-import { Section } from './section';
-
 import {
-  profilePicture
+  popups, editPopup, editName, editSignature, addCardPopup, submitCard,
+  photoPopup, photoImg, photoCaption, profileName, profileSignature,
+  editBtn, addBtn, closeBtns, cards, cardTemplate, editInfo,
+  photoName, photo, editPfpPopup, newPfp, editPfpBtn, profilePicture, editPfp,
+  delPopup, delCardBtn, saveNewInfoBtn, submitingCardBtn, confirmNewPfpBtn, config
 }
-  from './utils/const.js';
+  from './const.js';
 
-import { setPopupListener } from './modals.js';
+import { setPopupListener, closeListener, closePopup } from './modals.js';
 
 setPopupListener()
+closeListener()
 
-import { Card } from './components/cards.js';
+import { createCard } from './cards.js';
 
-import { changeInfo } from './utils/utils';
+import { changeInfo } from './utils.js';
 
-// import { enableValidation } from './validate.js';
+import { enableValidation } from './validate.js';
 
-// enableValidation({
-//   formSelector: '.popup__container',
-//   inputSelector: '.popup__input-container',
-//   submitButtonSelector: '.popup__save-button',
-//   inactiveButtonClass: 'button_disabled',
-//   inputErrorClass: 'popup__input-container_error',
-//   errorClass: 'popup__input-container-error_active'
-// });
+enableValidation({
+  formSelector: '.popup__container',
+  inputSelector: '.popup__input-container',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'button_disabled',
+  inputErrorClass: 'popup__input-container_error',
+  errorClass: 'popup__input-container-error_active'
+});
 
-import { api } from './components/api.js'
-
-import FormValidator from './components/FormValidator.js'
-
-import UserInfo from './components/UserInfo.js';
+import { setServerInfo, createServerCards, createServerCard, setServerPfp } from './api.js'
 
 let id = ''
 
-// Подключение валидации (наверно куда-то надо перекинуть)
-
-const popup1 = new FormValidator ({
-  formSelector: '#popup1',
-  inputSelector: '.popup__input-container',
-  submitButtonSelector: '.popup__save-button',
-  inactiveButtonClass: 'button_disabled',
-  inputErrorClass: 'popup__input-container_error',
-  errorClass: 'popup__input-container-error_active'
-})
-
-popup1.EnableValidation()
-
-const popup2 = new FormValidator ({
-  formSelector: '#popup2',
-  inputSelector: '.popup__input-container',
-  submitButtonSelector: '.popup__save-button',
-  inactiveButtonClass: 'button_disabled',
-  inputErrorClass: 'popup__input-container_error',
-  errorClass: 'popup__input-container-error_active'
-})
-
-popup2.EnableValidation()
-
-const popup3 = new FormValidator ({
-  formSelector: '#popup3',
-  inputSelector: '.popup__input-container',
-  submitButtonSelector: '.popup__save-button',
-  inactiveButtonClass: 'button_disabled',
-  inputErrorClass: 'popup__input-container_error',
-  errorClass: 'popup__input-container-error_active'
-})
-
-popup3.EnableValidation()
-
 // подргужаем информацию о пользователе и карточках с сервера
 
-export const userNameNTitle = new UserInfo({nameSelector: '.profile__name', titleSelector: '.profile__signature'})
-
-Promise.all([api.setServerInfo(), userNameNTitle.getUserInfo(), api.createServerCards()])
-  .then(([userData, userMainData, serverCards]) => {
-    userNameNTitle.setUserInfo(userMainData.name, userMainData.title)
+Promise.all([setServerInfo(), createServerCards()])
+  .then(([userData, serverCards]) => {
+    changeInfo(userData.name, userData.about)
     profilePicture.src = userData.avatar
     id = userData._id
 
-    const section = new Section({
-      items: serverCards,
-      renderer: (obj, containerSelector) => {
-        const newCard = new Card(obj);
-        containerSelector.append(newCard.generate());
-      }
-    },
-      'cards')
-
-    section.initialCards()
-
+    serverCards.forEach((card) => {
+      cards.append(createCard(card.link, card.name, card.likes, card.owner._id, card._id))
+    })
   })
+
   .catch((err) => {
     console.log(err);
   });
 
-export { id }
+// отображение загрузки
 
+function renderLoading(button, isLoading, buttonText = 'Сохранить', loadingText = 'Сохранение...') {
 
+  if (isLoading) {
+    button.textContent = loadingText
+  }
+  else {
+    button.textContent = buttonText
+  }
+}
 
+// нажатие на кнопку изменения информации о пользователе
 
+editInfo.addEventListener('submit', (evt) => {
+  evt.preventDefault()
+  renderLoading(saveNewInfoBtn, true)
+
+  changeInfo(editName.value, editSignature.value)
+})
+
+// нажатие на кнопку добавления карточки
+
+submitCard.addEventListener('submit', (evt) => {
+  evt.preventDefault()
+  renderLoading(submitingCardBtn, true, 'Создать', 'Cоздание...')
+
+  createServerCard(photoName.value, photo.value)
+    .then((result) => {
+      cards.prepend(createCard(result.link, result.name, result.likes, result.owner._id, result._id))
+      closePopup(submitCard)
+      evt.target.reset()
+    })
+
+    .catch((err) => {
+      console.log(err);
+    })
+
+    .finally(() => {
+      renderLoading(submitingCardBtn, false, 'Создать', 'Создать', 'Cоздание...')
+    })
+})
+
+// нажатие на изменение аватара
+
+editPfp.addEventListener('submit', (evt) => {
+  evt.preventDefault()
+  renderLoading(confirmNewPfpBtn, true)
+
+  setServerPfp(newPfp.value)
+    .then((result) => {
+      profilePicture.src = result.avatar
+      closePopup(editPfpPopup)
+      evt.target.reset()
+    })
+
+    .catch((err) => {
+      console.log(err);
+    })
+
+    .finally(() => {
+      renderLoading(confirmNewPfpBtn, false)
+    })
+})
+
+export { renderLoading, id }
