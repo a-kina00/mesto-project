@@ -52,19 +52,11 @@ const config = {
   }
 }
 
-const validationConfig = {
-  inputSelector: '.popup__input-container',
-  submitButtonSelector: '.popup__save-button',
-  inactiveButtonClass: 'button_disabled',
-  inputErrorClass: 'popup__input-container_error',
-  errorClass: 'popup__input-container-error_active'
-}
-
 
 export {
   popups, editPopup, editName, editSignature, addCardPopup, submitCard,
   photoPopup, photoImg, photoCaption, profileName, profileSignature,
-  editBtn, addBtn, closeBtns, cards, cardTemplate, editInfo, validationConfig,
+  editBtn, addBtn, closeBtns, cards, cardTemplate, editInfo,
   photoName, photo, editPfpPopup, newPfp, editPfpBtn, profilePicture, editPfp,
   delPopup, delCardBtn, delPopupContent, saveNewInfoBtn, submitingCardBtn,confirmNewPfpBtn, config
 }
