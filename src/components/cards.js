@@ -1,11 +1,9 @@
-import {
-  photoPopup
-}
+import { photoPopup }
   from '../utils/const.js';
 
 import { api } from './api.js'
 
-import { id } from '../index.js'
+import { id } from '../pages/index.js'
 
 import { PopupWithImage } from './popupWithImage.js';
 

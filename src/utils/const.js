@@ -34,7 +34,7 @@ const closeBtns = document.querySelectorAll('.popup__close');
 const cards = document.querySelector('.cards');
 const cardTemplate = document.querySelector('#card').content;
 
-import logo from '../../images/logo.svg';
+import logo from '../images/logo.svg';
 
 const mainLogo =document.querySelector('.header__logo');
 mainLogo.setAttribute('src', logo);
@@ -52,11 +52,19 @@ const config = {
   }
 }
 
+const validationConfig = {
+  inputSelector: '.popup__input-container',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'button_disabled',
+  inputErrorClass: 'popup__input-container_error',
+  errorClass: 'popup__input-container-error_active'
+}
+
 
 export {
   popups, editPopup, editName, editSignature, addCardPopup, submitCard,
   photoPopup, photoImg, photoCaption, profileName, profileSignature,
-  editBtn, addBtn, closeBtns, cards, cardTemplate, editInfo,
+  editBtn, addBtn, closeBtns, cards, cardTemplate, editInfo, validationConfig,
   photoName, photo, editPfpPopup, newPfp, editPfpBtn, profilePicture, editPfp,
   delPopup, delCardBtn, delPopupContent, saveNewInfoBtn, submitingCardBtn,confirmNewPfpBtn, config
 }

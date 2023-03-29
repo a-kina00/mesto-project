@@ -1,11 +1,11 @@
 import {
-  popups, editPopup, addCardPopup, editBtn, addBtn, closeBtns, confirmNewPfpBtn, submitingCardBtn,
+  editPopup, addCardPopup, editBtn, addBtn, closeBtns, confirmNewPfpBtn, submitingCardBtn,
   editPfpPopup, editPfpBtn, editName, editSignature, profileName, profileSignature, profilePicture
 } from './utils/const.js'
 
 import { PopupWithForm } from './components/popupWithForm';
 
-import { Section } from './section.js';
+import { Section } from './components/section.js';
 
 import { Card } from './components/cards.js';
 
@@ -13,7 +13,7 @@ import { renderLoading } from './utils/utils.js';
 
 import { api } from './components/api.js';
 
-import { userNameNTitle } from './index.js';
+import { userNameNTitle } from './pages/index.js';
 
 function fillProfileInputs() {
   editName.setAttribute('value', profileName.textContent);
