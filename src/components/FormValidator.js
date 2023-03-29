@@ -1,5 +1,5 @@
 export default class FormValidator {
-    constructor({formSelector, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass}, validationElem){
+    constructor(formSelector, {inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass}, validationElem){
         this._formSelector = formSelector
         this._inputSelector = inputSelector
         this._submitButtonSelector = submitButtonSelector
@@ -65,7 +65,6 @@ export default class FormValidator {
 
         inputList.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
-                console.log(inputElement)
                 this._CheckInputValidity(popupElement, inputElement)
                 this._ToggleButtonState(inputList, buttonElement)
             })

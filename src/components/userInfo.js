@@ -12,7 +12,6 @@ export default class UserInfo {
     return api.setServerInfo()
     .then((obj) => {
       return obj = {name: obj.name, title: obj.about}
-      // console.log(obj) //{name: obj.name, title: obj.about, as: 123}
     })
   }
 
