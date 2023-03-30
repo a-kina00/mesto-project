@@ -37,7 +37,7 @@ const popup2 = new FormValidator({
   errorClass: 'popup__input-container-error_active'
 })
 
-popup2.EnableValidation()
+popup2.enableValidation()
 
 const popup3 = new FormValidator({
   formSelector: '#popup3',
@@ -48,7 +48,7 @@ const popup3 = new FormValidator({
   errorClass: 'popup__input-container-error_active'
 })
 
-popup3.EnableValidation()
+popup3.enableValidation()
 
 const popup1 = new FormValidator({
   formSelector: '#popup1',
@@ -59,7 +59,7 @@ const popup1 = new FormValidator({
   errorClass: 'popup__input-container-error_active'
 })
 
-popup1.EnableValidation()
+popup1.enableValidation()
 
 
 import { setServerInfo, createServerCards, createServerCard, setServerPfp } from './api.js'
