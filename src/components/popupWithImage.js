@@ -18,4 +18,8 @@ export class PopupWithImage extends Popup {
         photoImg.alt = this._title;
         photoCaption.textContent = this._title;
     }
+
+    setEventListeners() {
+      super.setEventListeners();
+    }
 }

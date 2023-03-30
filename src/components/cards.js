@@ -1,17 +1,18 @@
-import { photoPopup }
-  from '../utils/const.js';
+// import { photoPopup }
+//   from '../utils/const.js';
 
 import { api } from './api.js'
 
 import { id } from '../pages/index.js'
 
-import { PopupWithImage } from './popupWithImage.js';
+// import { PopupWithImage } from './popupWithImage.js';
 
 //СОЗДАЁМ КАРТОЧКУ
 export class Card {
-  constructor(elementObj, templateSelector = 'card') {
+  constructor(elementObj, templateSelector, PopupWithImage) {
     this.templateSelector = templateSelector;
     this.elementObj = elementObj;
+    this.PopupWithImage = PopupWithImage
   }
 
   //Получаем элемент разметки из шаблона
@@ -78,11 +79,16 @@ export class Card {
 
     //Попап превью
     this._elementImage.addEventListener('click', () => {
-      const popup = new PopupWithImage('#popup__photo', 
-          this._elementImage.src, 
-          this._elementTitle.textContent);
-      popup.open();
+      this.PopupWithImage(this._elementImage, this._elementTitle)
     })
+
+
+    // this._elementImage.addEventListener('click', () => {
+    //   const popup = new PopupWithImage('#popup__photo',
+    //       this._elementImage.src,
+    //       this._elementTitle.textContent);
+    //   popup.open();
+    // })
 
     //Удаление карточки
     this._elementDeleteButton.addEventListener('click', () => {

@@ -4,7 +4,7 @@ import { renderLoading } from '../utils/utils.js';
 
 export class PopupWithForm extends Popup {
     constructor(popupSelector, { submitCallback }) {
-        super(popupSelector) 
+        super(popupSelector)
         this.submitCallback = submitCallback;
         this.popupInputs = this._popupElement.querySelectorAll('.popup__input-container');
         this._popupForm = this._popupElement.querySelector('.popup__content');
@@ -45,7 +45,6 @@ export class PopupWithForm extends Popup {
 
             this.submitCallback(this._getInputValues());
             this.close();
-
         })
 
     }

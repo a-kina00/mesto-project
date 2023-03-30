@@ -6,6 +6,8 @@ import { profilePicture, validationConfig } from '../utils/const.js';
 
 import { setPopupListener, newEditPopup } from '../modals.js';
 
+import { PopupWithImage } from '../components/popupWithImage';
+
 setPopupListener()
 
 import { Card } from '../components/cards.js';
@@ -45,7 +47,14 @@ Promise.all([api.setServerInfo(), userNameNTitle.getUserInfo(), api.createServer
     const section = new Section({
       items: serverCards,
       renderer: (obj, containerSelector) => {
-        const newCard = new Card(obj);
+        const newCard = new Card(obj, 'card',
+          (elementImage, elementTitle) => {
+            const popup = new PopupWithImage('#popup__photo',
+              elementImage.src,
+              elementTitle.textContent);
+              popup.setEventListeners()
+            popup.open();
+          })
         containerSelector.append(newCard.generate());
       }
     },

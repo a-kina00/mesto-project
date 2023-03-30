@@ -1,4 +1,4 @@
-import { config } from '../utils/const.js';
+
 
 import { request } from '../utils/utils.js';
 
@@ -60,6 +60,12 @@ class Api {
   }
 }
 
-const api = new Api(config)
+const api = new Api({
+  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-21',
+  headers: {
+    authorization: 'de8fea61-ac5b-4c42-a352-8c78fb2afa7a',
+    'Content-Type': 'application/json'
+  }
+})
 
 export { api }

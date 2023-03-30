@@ -15,6 +15,7 @@ import { api } from './components/api.js';
 
 import { userNameNTitle } from './pages/index.js';
 
+import { PopupWithImage } from './components/popupWithImage.js';
 
 const newEditPopup = new PopupWithForm('#editProfile', {
   submitCallback: (item) => {
@@ -35,9 +36,15 @@ const newAddCardPopup = new PopupWithForm('#addCard',
           const section = new Section({
             items: newCardObj,
             renderer: (obj, containerSelector) => {
-              const newCard = new Card(obj);
+              const newCard = new Card(obj, 'card',
+                (elementImage, elementTitle) => {
+                  const popup = new PopupWithImage('#popup__photo',
+                    elementImage.src,
+                    elementTitle.textContent);
+                  popup.setEventListeners()
+                  popup.open();
+                })
               containerSelector.prepend(newCard.generate());
-              newAddCardPopup.close();
             }
           }, 'cards')
 
