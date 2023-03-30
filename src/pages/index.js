@@ -22,15 +22,15 @@ let id = ''
 
 const popup1 = new FormValidator('#popup1', validationConfig)
 
-popup1.EnableValidation()
+popup1.enableValidation()
 
 const popup2 = new FormValidator('#popup2', validationConfig)
 
-popup2.EnableValidation()
+popup2.enableValidation()
 
 const popup3 = new FormValidator('#popup3', validationConfig)
 
-popup3.EnableValidation()
+popup3.enableValidation()
 
 // подргужаем информацию о пользователе и карточках с сервера
 
