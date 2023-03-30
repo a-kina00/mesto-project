@@ -16,7 +16,7 @@ import { api } from './components/api.js';
 import { userNameNTitle } from './pages/index.js';
 
 
-const newEditPopup = new PopupWithForm(editPopup, {
+const newEditPopup = new PopupWithForm('#editProfile', {
   submitCallback: (item) => {
     userNameNTitle.setUserInfo(item["user-name"], item["user-signature"]);
   }
@@ -24,7 +24,7 @@ const newEditPopup = new PopupWithForm(editPopup, {
 
 newEditPopup.setEventListeners();
 
-const newAddCardPopup = new PopupWithForm(addCardPopup,
+const newAddCardPopup = new PopupWithForm('#addCard',
   {
     submitCallback: (item) => {
 
@@ -37,6 +37,7 @@ const newAddCardPopup = new PopupWithForm(addCardPopup,
             renderer: (obj, containerSelector) => {
               const newCard = new Card(obj);
               containerSelector.prepend(newCard.generate());
+              newAddCardPopup.close();
             }
           }, 'cards')
 
@@ -55,13 +56,14 @@ const newAddCardPopup = new PopupWithForm(addCardPopup,
   })
 newAddCardPopup.setEventListeners();
 
-const newEditPfpPopup = new PopupWithForm(editPfpPopup,
+const newEditPfpPopup = new PopupWithForm('#editPfp',
   {
     submitCallback: (item) => {
 
       api.setServerPfp(item["pfp-url"])
         .then((result) => {
           profilePicture.src = result.avatar
+          newEditPfpPopup.close();
         })
 
         .catch((err) => {
@@ -94,4 +96,4 @@ function setPopupListener() {
 
 
 
-export { setPopupListener };
+export { setPopupListener, newEditPopup };

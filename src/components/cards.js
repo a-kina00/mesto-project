@@ -78,7 +78,7 @@ export class Card {
 
     //Попап превью
     this._elementImage.addEventListener('click', () => {
-      const popup = new PopupWithImage(photoPopup, 
+      const popup = new PopupWithImage('#popup__photo', 
           this._elementImage.src, 
           this._elementTitle.textContent);
       popup.open();

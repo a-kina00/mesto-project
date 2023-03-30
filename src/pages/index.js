@@ -4,7 +4,7 @@ import { Section } from '../components/section.js';
 
 import { profilePicture, validationConfig } from '../utils/const.js';
 
-import { setPopupListener } from '../modals.js';
+import { setPopupListener, newEditPopup } from '../modals.js';
 
 setPopupListener()
 
