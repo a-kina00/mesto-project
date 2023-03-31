@@ -11,7 +11,7 @@ import { Card } from './components/cards.js';
 
 import { api } from './components/api.js';
 
-import { userNameNTitle } from './pages/index.js';
+import { id, userNameNTitle } from './pages/index.js';
 
 import { PopupWithImage } from './components/popupWithImage.js';
 
@@ -38,7 +38,19 @@ const newAddCardPopup = new PopupWithForm('#addCard',
                   const newPopupWithImage = new PopupWithImage('#popup__photo');
                   newPopupWithImage.setEventListeners()
                   newPopupWithImage.open(elementImage, elementTitle);
-                })
+                }, id,
+                {
+                  dislikeServerCard: (cardId) => {
+                    return api.dislikeServerCard(cardId)
+                  },
+                  likeServerCard: (cardId) => {
+                    return api.likeServerCard(cardId)
+                  },
+                  deleteServerCard: (cardId) => {
+                    return api.deleteServerCard(cardId)
+                  }
+                }
+              )
               containerSelector.prepend(newCard.generate());
             }
           }, 'cards')

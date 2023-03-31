@@ -3,10 +3,20 @@ import { renderLoading } from "../utils/utils.js"
 import { saveNewInfoBtn } from '../utils/const.js';
 
 export default class UserInfo {
-  constructor({nameSelector, titleSelector}) {
+  constructor({nameSelector, titleSelector}, {getUserInfo, setUserInfo}) {
     this._nameSelector = nameSelector
     this._titleSelector = titleSelector
+    this._getUserInfo = getUserInfo
   }
+
+  // getUser() {
+  //   // return api.setServerInfo()
+  //   this._getUserInfo()
+  //     .then((obj) => {
+  //       console.log(obj);
+  //       return obj = { name: obj.name, title: obj.about }
+  //     })
+  // }
 
   getUserInfo() {
     return api.setServerInfo()
@@ -23,7 +33,7 @@ export default class UserInfo {
 
       name.textContent = result.name
       title.textContent = result.about
-      //newEditPopup.close() <-- Когда сможешь перенести эту часть из UserInfo, раскомментируй 
+      //newEditPopup.close() <-- Когда сможешь перенести эту часть из UserInfo, раскомментируй
     })
 
     .catch((err) => {

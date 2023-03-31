@@ -36,7 +36,15 @@ popup3.enableValidation()
 
 // подргужаем информацию о пользователе и карточках с сервера
 
-const userNameNTitle = new UserInfo({ nameSelector: '.profile__name', titleSelector: '.profile__signature' })
+const userNameNTitle = new UserInfo({ nameSelector: '.profile__name', titleSelector: '.profile__signature' },
+  {
+    getUserInfo: () => {
+      return api.setServerInfo()
+    },
+    setUserInfo: () => {
+      return api.changeServerInfo(newUserName, newUserTitle)
+    }
+  })
 
 Promise.all([api.setServerInfo(), userNameNTitle.getUserInfo(), api.createServerCards()])
   .then(([userData, userMainData, serverCards]) => {
@@ -52,7 +60,19 @@ Promise.all([api.setServerInfo(), userNameNTitle.getUserInfo(), api.createServer
             const newPopupWithImage = new PopupWithImage('#popup__photo');
             newPopupWithImage.setEventListeners()
             newPopupWithImage.open(elementImage, elementTitle);
-          })
+          }, id,
+          {
+            dislikeServerCard: (cardId) => {
+              return api.dislikeServerCard(cardId)
+            },
+            likeServerCard: (cardId) => {
+              return api.likeServerCard(cardId)
+            },
+            deleteServerCard: (cardId) => {
+              return api.deleteServerCard(cardId)
+            }
+          }
+        )
         containerSelector.append(newCard.generate());
       }
     },
@@ -67,5 +87,13 @@ Promise.all([api.setServerInfo(), userNameNTitle.getUserInfo(), api.createServer
 export { id, userNameNTitle }
 
 
+// const getUserInfo = () => {
+//   api.setServerInfo()
+//     .then((obj) => {
+//       console.log(obj);
+//     })
 
+// }
+
+// getUserInfo()
 
