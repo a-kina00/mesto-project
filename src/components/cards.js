@@ -79,7 +79,7 @@ export class Card {
 
     //Попап превью
     this._elementImage.addEventListener('click', () => {
-      this.PopupWithImage(this._elementImage, this._elementTitle)
+      this.PopupWithImage(this._elementImage.src, this._elementTitle.textContent)
     })
 
 

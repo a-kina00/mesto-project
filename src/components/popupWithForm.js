@@ -1,7 +1,5 @@
 import { Popup } from "./popup";
 
-import { renderLoading } from '../utils/utils.js';
-
 export class PopupWithForm extends Popup {
     constructor(popupSelector, { submitCallback }) {
         super(popupSelector)
@@ -41,10 +39,12 @@ export class PopupWithForm extends Popup {
                     this.popupButton.textContent = 'Сохранение...';
                 })*/
             evt.preventDefault();
-            renderLoading(this.popupButton, true);
 
-            this.submitCallback(this._getInputValues());
-            this.close();
+            const initialText= this.popupButton.textContent;
+
+            this.popupButton.textContent = 'Сохранение...';
+
+            this.submitCallback(this._getInputValues(), initialText, this.popupButton);
         })
 
     }

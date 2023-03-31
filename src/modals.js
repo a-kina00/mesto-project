@@ -9,8 +9,6 @@ import { Section } from './components/section.js';
 
 import { Card } from './components/cards.js';
 
-import { renderLoading } from './utils/utils.js';
-
 import { api } from './components/api.js';
 
 import { userNameNTitle } from './pages/index.js';
@@ -22,12 +20,11 @@ const newEditPopup = new PopupWithForm('#editProfile', {
     userNameNTitle.setUserInfo(item["user-name"], item["user-signature"]);
   }
 })
-
 newEditPopup.setEventListeners();
 
 const newAddCardPopup = new PopupWithForm('#addCard',
   {
-    submitCallback: (item) => {
+    submitCallback: (item, initialText, button) => {
 
       api.createServerCard(item["photo-name"], item["photo-url"])
         .then((result) => {
@@ -38,17 +35,15 @@ const newAddCardPopup = new PopupWithForm('#addCard',
             renderer: (obj, containerSelector) => {
               const newCard = new Card(obj, 'card',
                 (elementImage, elementTitle) => {
-                  const popup = new PopupWithImage('#popup__photo',
-                    elementImage.src,
-                    elementTitle.textContent);
-                  popup.setEventListeners()
-                  popup.open();
+                  const newPopupWithImage = new PopupWithImage('#popup__photo');
+                  newPopupWithImage.setEventListeners()
+                  newPopupWithImage.open(elementImage, elementTitle);
                 })
               containerSelector.prepend(newCard.generate());
             }
           }, 'cards')
-
           section.addItem()
+          newAddCardPopup.close();
         })
 
         .catch((err) => {
@@ -56,7 +51,7 @@ const newAddCardPopup = new PopupWithForm('#addCard',
         })
 
         .finally(() => {
-          renderLoading(submitingCardBtn, false, 'Создать', 'Cоздание...')
+          button.textContent = initialText;
         })
 
     }
@@ -65,7 +60,7 @@ newAddCardPopup.setEventListeners();
 
 const newEditPfpPopup = new PopupWithForm('#editPfp',
   {
-    submitCallback: (item) => {
+    submitCallback: (item, initialText, button) => {
 
       api.setServerPfp(item["pfp-url"])
         .then((result) => {
@@ -78,7 +73,7 @@ const newEditPfpPopup = new PopupWithForm('#editPfp',
         })
 
         .finally(() => {
-          renderLoading(confirmNewPfpBtn, false)
+          button.textContent = initialText;
         })
     }
   })

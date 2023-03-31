@@ -49,11 +49,9 @@ Promise.all([api.setServerInfo(), userNameNTitle.getUserInfo(), api.createServer
       renderer: (obj, containerSelector) => {
         const newCard = new Card(obj, 'card',
           (elementImage, elementTitle) => {
-            const popup = new PopupWithImage('#popup__photo',
-              elementImage.src,
-              elementTitle.textContent);
-              popup.setEventListeners()
-            popup.open();
+            const newPopupWithImage = new PopupWithImage('#popup__photo');
+            newPopupWithImage.setEventListeners()
+            newPopupWithImage.open(elementImage, elementTitle);
           })
         containerSelector.append(newCard.generate());
       }
@@ -61,7 +59,6 @@ Promise.all([api.setServerInfo(), userNameNTitle.getUserInfo(), api.createServer
       'cards')
 
     section.initialCards()
-
   })
   .catch((err) => {
     console.log(err);

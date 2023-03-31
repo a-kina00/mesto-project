@@ -23,6 +23,7 @@ export default class UserInfo {
 
       name.textContent = result.name
       title.textContent = result.about
+      //newEditPopup.close() <-- Когда сможешь перенести эту часть из UserInfo, раскомментируй 
     })
 
     .catch((err) => {
