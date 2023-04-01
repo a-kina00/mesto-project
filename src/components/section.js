@@ -6,12 +6,6 @@ export class Section {
     this.cardContainer = document.querySelector(`.${this.containerSelector}`)
   }
 
-  // initialCards() {
-  //   this.items.forEach(element => {
-  //     this.renderer(element, this.cardContainer)
-  //   });
-  // }
-
   initialCards(elements) {
     elements.forEach(element => {
       this.renderer(element, this.cardContainer, {append: false})

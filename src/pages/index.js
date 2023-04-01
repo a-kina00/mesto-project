@@ -6,11 +6,7 @@ import { profilePicture, validationConfig, saveNewInfoBtn } from '../utils/const
 
 import { setPopupListener, newEditPopup, createCard } from '../modals.js';
 
-import { PopupWithImage } from '../components/popupWithImage';
-
 setPopupListener()
-
-import { Card } from '../components/cards.js';
 
 import UserInfo from '../components/userInfo.js';
 

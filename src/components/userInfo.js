@@ -1,5 +1,3 @@
-//Не лезь Антон, она тебя сожрет
-//et dixit diabolo ne vadas moron illa te devorabit et pugnavit cum UserInfo diebus et duabus noctibus et cum lucratus est daemonium signavit in atriis suis
 export default class UserInfo {
   constructor({ nameSelector, titleSelector }, { getUserInfo, setUserInfo, closePopup, renderLoading, setServerPfp }, { saveNewInfoBtn, profilePicture }) {
     this._nameSelector = nameSelector
@@ -11,6 +9,8 @@ export default class UserInfo {
     this._saveNewInfoBtn = saveNewInfoBtn
     this._renderLoading = renderLoading
     this._setServerPfr = setServerPfp
+    this._name = document.querySelector(this._nameSelector)
+    this._title = document.querySelector(this._titleSelector)
   }
 
   getUserInfo() {
@@ -24,11 +24,8 @@ export default class UserInfo {
   setUserInfo(name, about) {
     this._setUserInfo(name, about)
       .then((result) => {
-        const name = document.querySelector(this._nameSelector)
-        const title = document.querySelector(this._titleSelector)
-
-        name.textContent = result.name
-        title.textContent = result.about
+        this._name.textContent = result.name
+        this._title.textContent = result.about
         this._profilePicture.src = result.avatar
         this._closePopup()
       })
