@@ -1,6 +1,3 @@
-
-// import { request } from '../utils/utils.js';
-
 class Api {
   constructor(config) {
     this.config = config

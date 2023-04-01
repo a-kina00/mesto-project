@@ -2,9 +2,9 @@ import './index.css'
 
 import { Section } from '../components/section.js';
 
-import { profilePicture, validationConfig } from '../utils/const.js';
+import { validationConfig } from '../utils/const.js';
 
-import { setPopupListener, newEditPopup } from '../modals.js';
+import { setPopupListener } from '../modals.js';
 
 import { PopupWithImage } from '../components/popupWithImage';
 
@@ -45,16 +45,16 @@ const userNameNTitle = new UserInfo({ nameSelector: '.profile__name', titleSelec
       return api.changeServerInfo(name, about)
     }
   })
-  userNameNTitle.getUserInfo() // Тут не константа т.к Данные получают не мгновенно
+userNameNTitle.getUserInfo() // Тут не константа т.к Данные получают не мгновенно
 
 
 
-  api.createServerCards() //Большой промис больше не нужен
+api.createServerCards() //Большой промис больше не нужен
   .then((serverCards) => {
     const userStuff = userNameNTitle.getUserInfo() // Теперь записываем пришедший объект
 
     userNameNTitle.setUserInfo(userStuff.name, userStuff.about) // Вычеркнули api
-    id = userStuff._id // Теперь Красиво?
+    id = userStuff._id 
 
     const section = new Section({
       items: serverCards,
@@ -89,15 +89,3 @@ const userNameNTitle = new UserInfo({ nameSelector: '.profile__name', titleSelec
   });
 
 export { id, userNameNTitle }
-
-
-// const getUserInfo = () => {
-//   api.setServerInfo()
-//     .then((obj) => {
-//       console.log(obj);
-//     })
-
-// }
-
-// getUserInfo()
-
