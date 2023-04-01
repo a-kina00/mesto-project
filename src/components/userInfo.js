@@ -3,9 +3,6 @@ import { renderLoading } from "../utils/utils.js"
 import { saveNewInfoBtn } from '../utils/const.js';
 import { newEditPopup } from "../modals.js";
 
-//Не лезь Антон, она тебя сожрет
-//et dixit diabolo ne vadas moron illa te devorabit et pugnavit cum UserInfo diebus et duabus noctibus et cum lucratus est daemonium signavit in atriis suis
-
 export default class UserInfo {
   constructor({nameSelector, titleSelector}, {getUserInfo, setUserInfo}) {
     this._nameSelector = nameSelector
@@ -23,7 +20,6 @@ export default class UserInfo {
   }
 
   setUserInfo(name, about) {
-    console.log(name, about)
     this._setUserInfo(name, about)
     .then((result) => {
 

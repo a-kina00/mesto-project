@@ -1,12 +1,3 @@
-// import { photoPopup }
-//   from '../utils/const.js';
-
-// import { api } from './api.js'
-
-// import { id } from '../pages/index.js'
-
-// import { PopupWithImage } from './popupWithImage.js';
-
 //СОЗДАЁМ КАРТОЧКУ
 export class Card {
   constructor(elementObj, templateSelector, PopupWithImage, id, { dislikeServerCard, likeServerCard, deleteServerCard }) {
@@ -32,6 +23,9 @@ export class Card {
       .then((res) => {
         this._cardLikesValue.textContent = res.likes.length
         this._likeBtn.classList.toggle('card__like_active')
+      })
+      .catch((err) => {
+        console.log(err);
       })
   }
 
