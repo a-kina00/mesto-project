@@ -110,4 +110,4 @@ function setPopupListener() {
 
 
 
-export { setPopupListener, newEditPopup };
+export { setPopupListener, newEditPopup, newEditPfpPopup };

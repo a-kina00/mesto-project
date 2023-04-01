@@ -2,9 +2,9 @@ import './index.css'
 
 import { Section } from '../components/section.js';
 
-import { validationConfig } from '../utils/const.js';
+import { profilePicture, validationConfig, saveNewInfoBtn } from '../utils/const.js';
 
-import { setPopupListener } from '../modals.js';
+import { setPopupListener, newEditPopup } from '../modals.js';
 
 import { PopupWithImage } from '../components/popupWithImage';
 
@@ -17,6 +17,8 @@ import UserInfo from '../components/userInfo.js';
 import FormValidator from '../components/FormValidator.js'
 
 import { api } from '../components/api.js'
+
+import { renderLoading } from '../utils/utils.js'
 
 let id = ''
 
@@ -43,18 +45,19 @@ const userNameNTitle = new UserInfo({ nameSelector: '.profile__name', titleSelec
     },
     setUserInfo: (name, about) => {
       return api.changeServerInfo(name, about)
-    }
-  })
+    },
+    closePopup: () => { newEditPopup.close() },
+    renderLoading: (button, isLoading) => { renderLoading(button, isLoading) }
+  },
+  { saveNewInfoBtn, profilePicture })
 userNameNTitle.getUserInfo() // Тут не константа т.к Данные получают не мгновенно
-
-
 
 api.createServerCards() //Большой промис больше не нужен
   .then((serverCards) => {
     const userStuff = userNameNTitle.getUserInfo() // Теперь записываем пришедший объект
 
     userNameNTitle.setUserInfo(userStuff.name, userStuff.about) // Вычеркнули api
-    id = userStuff._id 
+    id = userStuff._id
 
     const section = new Section({
       items: serverCards,

@@ -16,6 +16,9 @@ export class Card {
         this._cardLikesValue.textContent = res.likes.length
         this._likeBtn.classList.toggle('card__like_active')
       })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   _dislikeServerCard(elementId) {
