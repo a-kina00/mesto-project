@@ -1,6 +1,5 @@
 //Не лезь Антон, она тебя сожрет
 //et dixit diabolo ne vadas moron illa te devorabit et pugnavit cum UserInfo diebus et duabus noctibus et cum lucratus est daemonium signavit in atriis suis
-
 export default class UserInfo {
   constructor({nameSelector, titleSelector}, {getUserInfo, setUserInfo, closePopup, renderLoading}, {saveNewInfoBtn, profilePicture}) {
     this._nameSelector = nameSelector

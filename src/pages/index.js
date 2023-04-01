@@ -54,12 +54,14 @@ const userNameNTitle = new UserInfo({ nameSelector: '.profile__name', titleSelec
 
 
 
-  api.createServerCards() //Большой промис больше не нужен
+
+
+api.createServerCards() //Большой промис больше не нужен
   .then((serverCards) => {
     const userStuff = userNameNTitle.getUserInfo() // Теперь записываем пришедший объект
 
     userNameNTitle.setUserInfo(userStuff.name, userStuff.about) // Вычеркнули api
-    id = userStuff._id // Теперь Красиво?
+    id = userStuff._id
 
     const section = new Section({
       items: serverCards,
@@ -94,15 +96,3 @@ const userNameNTitle = new UserInfo({ nameSelector: '.profile__name', titleSelec
   });
 
 export { id, userNameNTitle }
-
-
-// const getUserInfo = () => {
-//   api.setServerInfo()
-//     .then((obj) => {
-//       console.log(obj);
-//     })
-
-// }
-
-// getUserInfo()
-
