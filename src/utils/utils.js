@@ -3,7 +3,6 @@ import {
 }
   from './const.js';
 
-import { api } from '../components/api.js'
 
 // отображение загрузки
 

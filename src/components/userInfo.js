@@ -1,17 +1,16 @@
-import { profilePicture } from "../utils/const.js";
-import { renderLoading } from "../utils/utils.js"
-import { saveNewInfoBtn } from '../utils/const.js';
-import { newEditPopup } from "../modals.js";
-
 //Не лезь Антон, она тебя сожрет
 //et dixit diabolo ne vadas moron illa te devorabit et pugnavit cum UserInfo diebus et duabus noctibus et cum lucratus est daemonium signavit in atriis suis
 
 export default class UserInfo {
-  constructor({nameSelector, titleSelector}, {getUserInfo, setUserInfo}) {
+  constructor({nameSelector, titleSelector}, {getUserInfo, setUserInfo, closePopup, renderLoading}, {saveNewInfoBtn, profilePicture}) {
     this._nameSelector = nameSelector
     this._titleSelector = titleSelector
     this._getUserInfo = getUserInfo
     this._setUserInfo = setUserInfo
+    this._closePopup = closePopup
+    this._profilePicture = profilePicture
+    this._saveNewInfoBtn = saveNewInfoBtn
+    this._renderLoading = renderLoading
   }
 
   getUserInfo() {
@@ -23,7 +22,6 @@ export default class UserInfo {
   }
 
   setUserInfo(name, about) {
-    console.log(name, about)
     this._setUserInfo(name, about)
     .then((result) => {
 
@@ -32,8 +30,8 @@ export default class UserInfo {
 
       name.textContent = result.name
       title.textContent = result.about
-      profilePicture.src = result.avatar
-      newEditPopup.close()
+      this._profilePicture.src = result.avatar
+      this._closePopup()
     })
 
     .catch((err) => {
@@ -41,7 +39,7 @@ export default class UserInfo {
     })
 
     .finally(() => {
-      renderLoading(saveNewInfoBtn, false)
+      this._renderLoading(this._saveNewInfoBtn, false)
     })
   }
 }

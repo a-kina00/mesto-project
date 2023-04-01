@@ -2,7 +2,7 @@ import './index.css'
 
 import { Section } from '../components/section.js';
 
-import { profilePicture, validationConfig } from '../utils/const.js';
+import { profilePicture, validationConfig, saveNewInfoBtn } from '../utils/const.js';
 
 import { setPopupListener, newEditPopup } from '../modals.js';
 
@@ -17,6 +17,8 @@ import UserInfo from '../components/userInfo.js';
 import FormValidator from '../components/FormValidator.js'
 
 import { api } from '../components/api.js'
+
+import { renderLoading } from '../utils/utils.js'
 
 let id = ''
 
@@ -36,15 +38,18 @@ popup3.enableValidation()
 
 // подргужаем информацию о пользователе и карточках с сервера
 
-const userNameNTitle = new UserInfo({ nameSelector: '.profile__name', titleSelector: '.profile__signature' },
+const userNameNTitle = new UserInfo({ nameSelector: '.profile__name', titleSelector: '.profile__signature'},
   {
     getUserInfo: () => {
       return api.setServerInfo()
     },
     setUserInfo: (name, about) => {
       return api.changeServerInfo(name, about)
-    }
-  })
+    },
+    closePopup: () => {newEditPopup.close()},
+    renderLoading: (button, isLoading) => {renderLoading(button, isLoading)}
+  },
+  {saveNewInfoBtn, profilePicture})
   userNameNTitle.getUserInfo() // Тут не константа т.к Данные получают не мгновенно
 
 
