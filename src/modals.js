@@ -22,6 +22,30 @@ const newEditPopup = new PopupWithForm('#editProfile', {
 })
 newEditPopup.setEventListeners();
 
+
+function createCard(item) {
+  const newPopupWithImage = new PopupWithImage('#popup__photo');
+  newPopupWithImage.setEventListeners()
+
+  const newCard = new Card(item, 'card',
+    (elementImage, elementTitle) => {
+      newPopupWithImage.open(elementImage, elementTitle);
+    }, id,
+    {
+      dislikeServerCard: (cardId) => {
+        return api.dislikeServerCard(cardId)
+      },
+      likeServerCard: (cardId) => {
+        return api.likeServerCard(cardId)
+      },
+      deleteServerCard: (cardId) => {
+        return api.deleteServerCard(cardId)
+      }
+    }
+  )
+  return newCard
+}
+
 const newAddCardPopup = new PopupWithForm('#addCard',
   {
     submitCallback: (item, initialText, button) => {
@@ -33,25 +57,7 @@ const newAddCardPopup = new PopupWithForm('#addCard',
           const section = new Section({
             items: newCardObj,
             renderer: (obj, containerSelector) => {
-              const newCard = new Card(obj, 'card',
-                (elementImage, elementTitle) => {
-                  const newPopupWithImage = new PopupWithImage('#popup__photo');
-                  newPopupWithImage.setEventListeners()
-                  newPopupWithImage.open(elementImage, elementTitle);
-                }, id,
-                {
-                  dislikeServerCard: (cardId) => {
-                    return api.dislikeServerCard(cardId)
-                  },
-                  likeServerCard: (cardId) => {
-                    return api.likeServerCard(cardId)
-                  },
-                  deleteServerCard: (cardId) => {
-                    return api.deleteServerCard(cardId)
-                  }
-                }
-              )
-              containerSelector.prepend(newCard.generate());
+              containerSelector.prepend(createCard(obj).generate());
             }
           }, 'cards')
           section.addItem()
@@ -110,4 +116,4 @@ function setPopupListener() {
 
 
 
-export { setPopupListener, newEditPopup, newEditPfpPopup };
+export { setPopupListener, newEditPopup, newEditPfpPopup, createCard };

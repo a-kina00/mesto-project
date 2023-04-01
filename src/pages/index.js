@@ -4,7 +4,7 @@ import { Section } from '../components/section.js';
 
 import { profilePicture, validationConfig, saveNewInfoBtn } from '../utils/const.js';
 
-import { setPopupListener, newEditPopup } from '../modals.js';
+import { setPopupListener, newEditPopup, createCard } from '../modals.js';
 
 import { PopupWithImage } from '../components/popupWithImage';
 
@@ -66,25 +66,7 @@ api.createServerCards() //Большой промис больше не нуже
     const section = new Section({
       items: serverCards,
       renderer: (obj, containerSelector) => {
-        const newCard = new Card(obj, 'card',
-          (elementImage, elementTitle) => {
-            const newPopupWithImage = new PopupWithImage('#popup__photo');
-            newPopupWithImage.setEventListeners()
-            newPopupWithImage.open(elementImage, elementTitle);
-          }, id,
-          {
-            dislikeServerCard: (cardId) => {
-              return api.dislikeServerCard(cardId)
-            },
-            likeServerCard: (cardId) => {
-              return api.likeServerCard(cardId)
-            },
-            deleteServerCard: (cardId) => {
-              return api.deleteServerCard(cardId)
-            }
-          }
-        )
-        containerSelector.append(newCard.generate());
+        containerSelector.append(createCard(obj).generate())
       }
     },
       'cards')

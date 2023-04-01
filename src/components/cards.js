@@ -44,7 +44,7 @@ export class Card {
     const cardElement = document.getElementById(`${this.templateSelector}`).content.cloneNode(true);
     return cardElement;
   }
-
+  
   //Создаем карточку
   generate() {
     this._element = this._getElement();
