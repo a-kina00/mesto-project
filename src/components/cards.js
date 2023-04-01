@@ -1,17 +1,42 @@
-import { photoPopup }
-  from '../utils/const.js';
-
-import { api } from './api.js'
-
-import { id } from '../pages/index.js'
-
-import { PopupWithImage } from './popupWithImage.js';
-
 //СОЗДАЁМ КАРТОЧКУ
 export class Card {
-  constructor(elementObj, templateSelector = 'card') {
+  constructor(elementObj, templateSelector, PopupWithImage, id, { dislikeServerCard, likeServerCard, deleteServerCard }) {
     this.templateSelector = templateSelector;
     this.elementObj = elementObj;
+    this.PopupWithImage = PopupWithImage;
+    this.id = id;
+    this.dislikeServerCard = dislikeServerCard,
+      this.likeServerCard = likeServerCard,
+      this.deleteServerCard = deleteServerCard
+  }
+
+  _likeServerCard(elementId) {
+    this.likeServerCard(elementId)
+      .then((res) => {
+        this._cardLikesValue.textContent = res.likes.length
+        this._likeBtn.classList.toggle('card__like_active')
+      })
+  }
+
+  _dislikeServerCard(elementId) {
+    this.dislikeServerCard(elementId)
+      .then((res) => {
+        this._cardLikesValue.textContent = res.likes.length
+        this._likeBtn.classList.toggle('card__like_active')
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  _deleteServerCard(elementId) {
+    this.deleteServerCard(elementId)
+      .then(() => {
+        this._elementDeleteButton.closest('.card').remove()
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   //Получаем элемент разметки из шаблона
@@ -35,7 +60,7 @@ export class Card {
     this._cardLikesValue.textContent = this.elementObj.likes.length;
 
     //Включаем "корзину" для своих карточек
-    if (this.elementObj.owner._id === id) {
+    if (this.elementObj.owner._id === this.id) {
       this._elementDeleteButton.classList.remove('card__trash_disabled');
     }
 
@@ -43,7 +68,7 @@ export class Card {
     if (this.elementObj.likes !== undefined) {
       this._cardLikesValue.textContent = this.elementObj.likes.length;
       this.elementObj.likes.forEach((liker) => {
-        if (liker._id === id) {
+        if (liker._id === this.id) {
           this._likeBtn.classList.add('card__like_active')
         }
       })
@@ -56,43 +81,20 @@ export class Card {
     //Лайк карточки
     this._likeBtn.addEventListener('click', () => {
       if (this._likeBtn.classList.contains('card__like_active')) {
-        api.dislikeServerCard(this.elementObj._id)
-          .then((result) => {
-            this._cardLikesValue.textContent = result.likes.length
-            this._likeBtn.classList.toggle('card__like_active')
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        this._dislikeServerCard(this.elementObj._id);
       } else {
-        api.likeServerCard(this.elementObj._id)
-          .then((result) => {
-            this._cardLikesValue.textContent = result.likes.length
-            this._likeBtn.classList.toggle('card__like_active')
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        this._likeServerCard(this.elementObj._id);
       }
     })
 
     //Попап превью
     this._elementImage.addEventListener('click', () => {
-      const popup = new PopupWithImage(photoPopup, 
-          this._elementImage.src, 
-          this._elementTitle.textContent);
-      popup.open();
+      this.PopupWithImage(this._elementImage.src, this._elementTitle.textContent)
     })
 
     //Удаление карточки
     this._elementDeleteButton.addEventListener('click', () => {
-      api.deleteServerCard(this.elementObj._id)
-        .then(() => {
-          this._elementDeleteButton.closest('.card').remove()
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      this._deleteServerCard(this.elementObj._id)
     })
   }
 }
