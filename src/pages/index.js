@@ -38,7 +38,7 @@ popup3.enableValidation()
 
 // подргужаем информацию о пользователе и карточках с сервера
 
-const userNameNTitle = new UserInfo({ nameSelector: '.profile__name', titleSelector: '.profile__signature'},
+const userNameNTitle = new UserInfo({ nameSelector: '.profile__name', titleSelector: '.profile__signature' },
   {
     getUserInfo: () => {
       return api.setServerInfo()
@@ -46,20 +46,24 @@ const userNameNTitle = new UserInfo({ nameSelector: '.profile__name', titleSelec
     setUserInfo: (name, about) => {
       return api.changeServerInfo(name, about)
     },
-    closePopup: () => {newEditPopup.close()},
-    renderLoading: (button, isLoading) => {renderLoading(button, isLoading)}
+    closePopup: () => { newEditPopup.close() },
+    renderLoading: (button, isLoading) => { renderLoading(button, isLoading) }
   },
-  {saveNewInfoBtn, profilePicture})
-  userNameNTitle.getUserInfo() // Тут не константа т.к Данные получают не мгновенно
+  { saveNewInfoBtn, profilePicture })
+userNameNTitle.getUserInfo() // Тут не константа т.к Данные получают не мгновенно
 
 
- export const section = new Section({
-      // items: serverCards,
-      renderer: (obj, containerSelector) => {
-        containerSelector.append(createCard(obj).generate())
-      }
-    },
-      'cards')
+export const section = new Section({
+  // items: serverCards,
+  renderer: (obj, containerSelector, {append}) => {
+    if (append == false) {
+      containerSelector.append(createCard(obj).generate())
+    } else if (append == true) {
+      containerSelector.prepend(createCard(obj).generate())
+    }
+  }
+},
+  'cards')
 
 
 api.createServerCards() //Большой промис больше не нужен

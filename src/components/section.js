@@ -14,13 +14,13 @@ export class Section {
 
   initialCards(elements) {
     elements.forEach(element => {
-      this.renderer(element, this.cardContainer)
-    });
+      this.renderer(element, this.cardContainer, {append: false})
+    })
   }
 
 
   addItem(element) {
-    this.renderer(element, this.cardContainer)
+    this.renderer(element, this.cardContainer, {append: true})
   }
 }
 
