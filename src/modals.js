@@ -1,11 +1,10 @@
 import {
-  editPopup, addCardPopup, editBtn, addBtn, closeBtns, confirmNewPfpBtn, submitingCardBtn,
-  editPfpPopup, editPfpBtn, editName, editSignature, profileName, profileSignature, profilePicture
+  editBtn, addBtn, editPfpBtn, profileName, profileSignature, profilePicture
 } from './utils/const.js'
 
 import { PopupWithForm } from './components/popupWithForm';
 
-import { Section } from './components/section.js';
+import { section } from './pages/index.js';
 
 import { Card } from './components/cards.js';
 
@@ -22,39 +21,37 @@ const newEditPopup = new PopupWithForm('#editProfile', {
 })
 newEditPopup.setEventListeners();
 
+
+function createCard(item) {
+  const newPopupWithImage = new PopupWithImage('#popup__photo');
+  newPopupWithImage.setEventListeners()
+
+  const newCard = new Card(item, 'card',
+    (elementImage, elementTitle) => {
+      newPopupWithImage.open(elementImage, elementTitle);
+    }, id,
+    {
+      dislikeServerCard: (cardId) => {
+        return api.dislikeServerCard(cardId)
+      },
+      likeServerCard: (cardId) => {
+        return api.likeServerCard(cardId)
+      },
+      deleteServerCard: (cardId) => {
+        return api.deleteServerCard(cardId)
+      }
+    }
+  )
+  return newCard
+}
+
 const newAddCardPopup = new PopupWithForm('#addCard',
   {
     submitCallback: (item, initialText, button) => {
 
       api.createServerCard(item["photo-name"], item["photo-url"])
         .then((result) => {
-          //привязка к объекту карточки
-          const newCardObj = result;
-          const section = new Section({
-            items: newCardObj,
-            renderer: (obj, containerSelector) => {
-              const newCard = new Card(obj, 'card',
-                (elementImage, elementTitle) => {
-                  const newPopupWithImage = new PopupWithImage('#popup__photo');
-                  newPopupWithImage.setEventListeners()
-                  newPopupWithImage.open(elementImage, elementTitle);
-                }, id,
-                {
-                  dislikeServerCard: (cardId) => {
-                    return api.dislikeServerCard(cardId)
-                  },
-                  likeServerCard: (cardId) => {
-                    return api.likeServerCard(cardId)
-                  },
-                  deleteServerCard: (cardId) => {
-                    return api.deleteServerCard(cardId)
-                  }
-                }
-              )
-              containerSelector.prepend(newCard.generate());
-            }
-          }, 'cards')
-          section.addItem()
+          section.addItem(result)
           newAddCardPopup.close();
         })
 
@@ -74,7 +71,7 @@ const newEditPfpPopup = new PopupWithForm('#editPfp',
   {
     submitCallback: (item, initialText, button) => {
 
-      api.setServerPfp(item["pfp-url"])
+      userNameNTitle._setServerPfr(item["pfp-url"])
         .then((result) => {
           profilePicture.src = result.avatar
           newEditPfpPopup.close();
@@ -110,4 +107,4 @@ function setPopupListener() {
 
 
 
-export { setPopupListener, newEditPopup, newEditPfpPopup };
+export { setPopupListener, newEditPopup, newEditPfpPopup, newEditPfpPopup, createCard };

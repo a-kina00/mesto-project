@@ -2,21 +2,19 @@ import './index.css'
 
 import { Section } from '../components/section.js';
 
-import { profilePicture, validationConfig, saveNewInfoBtn } from '../utils/const.js';
+import { profilePicture, profilePicture, validationConfig, saveNewInfoBtn, saveNewInfoBtn } from '../utils/const.js';
 
-import { setPopupListener, newEditPopup } from '../modals.js';
-
-import { PopupWithImage } from '../components/popupWithImage';
+import { setPopupListener, newEditPopup, newEditPopup, createCard } from '../modals.js';
 
 setPopupListener()
-
-import { Card } from '../components/cards.js';
 
 import UserInfo from '../components/userInfo.js';
 
 import FormValidator from '../components/FormValidator.js'
 
 import { api } from '../components/api.js'
+
+import { renderLoading } from '../utils/utils.js'
 
 import { renderLoading } from '../utils/utils.js'
 
@@ -47,10 +45,28 @@ const userNameNTitle = new UserInfo({ nameSelector: '.profile__name', titleSelec
       return api.changeServerInfo(name, about)
     },
     closePopup: () => { newEditPopup.close() },
+    renderLoading: (button, isLoading) => { renderLoading(button, isLoading) },
+    setServerPfp: (src) => {
+      return api.setServerPfp(src)
+    },
+    closePopup: () => { newEditPopup.close() },
     renderLoading: (button, isLoading) => { renderLoading(button, isLoading) }
   },
+  { saveNewInfoBtn, profilePicture },
   { saveNewInfoBtn, profilePicture })
 userNameNTitle.getUserInfo() // Тут не константа т.к Данные получают не мгновенно
+export const section = new Section({
+  // items: serverCards,
+  renderer: (obj, containerSelector, {append}) => {
+    if (append == false) {
+      containerSelector.append(createCard(obj).generate())
+    } else if (append == true) {
+      containerSelector.prepend(createCard(obj).generate())
+    }
+  }
+},
+  'cards')
+
 
 api.createServerCards() //Большой промис больше не нужен
   .then((serverCards) => {
@@ -58,34 +74,9 @@ api.createServerCards() //Большой промис больше не нуже
 
     userNameNTitle.setUserInfo(userStuff.name, userStuff.about) // Вычеркнули api
     id = userStuff._id
+    id = userStuff._id
 
-    const section = new Section({
-      items: serverCards,
-      renderer: (obj, containerSelector) => {
-        const newCard = new Card(obj, 'card',
-          (elementImage, elementTitle) => {
-            const newPopupWithImage = new PopupWithImage('#popup__photo');
-            newPopupWithImage.setEventListeners()
-            newPopupWithImage.open(elementImage, elementTitle);
-          }, id,
-          {
-            dislikeServerCard: (cardId) => {
-              return api.dislikeServerCard(cardId)
-            },
-            likeServerCard: (cardId) => {
-              return api.likeServerCard(cardId)
-            },
-            deleteServerCard: (cardId) => {
-              return api.deleteServerCard(cardId)
-            }
-          }
-        )
-        containerSelector.append(newCard.generate());
-      }
-    },
-      'cards')
-
-    section.initialCards()
+    section.initialCards(serverCards)
   })
   .catch((err) => {
     console.log(err);
