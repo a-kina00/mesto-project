@@ -47,7 +47,10 @@ const userNameNTitle = new UserInfo({ nameSelector: '.profile__name', titleSelec
       return api.changeServerInfo(name, about)
     },
     closePopup: () => { newEditPopup.close() },
-    renderLoading: (button, isLoading) => { renderLoading(button, isLoading) }
+    renderLoading: (button, isLoading) => { renderLoading(button, isLoading) },
+    setServerPfp: (src) => {
+      return api.setServerPfp(src)
+    }
   },
   { saveNewInfoBtn, profilePicture })
 userNameNTitle.getUserInfo() // Тут не константа т.к Данные получают не мгновенно

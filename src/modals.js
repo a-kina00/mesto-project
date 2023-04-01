@@ -9,6 +9,7 @@ import { PopupWithForm } from './components/popupWithForm';
 import { section } from './pages/index.js';
 
 
+
 import { Card } from './components/cards.js';
 
 import { api } from './components/api.js';
@@ -82,7 +83,7 @@ const newEditPfpPopup = new PopupWithForm('#editPfp',
   {
     submitCallback: (item, initialText, button) => {
 
-      api.setServerPfp(item["pfp-url"])
+      userNameNTitle._setServerPfr(item["pfp-url"])
         .then((result) => {
           profilePicture.src = result.avatar
           newEditPfpPopup.close();
