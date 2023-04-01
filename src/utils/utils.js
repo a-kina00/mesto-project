@@ -1,9 +1,3 @@
-
-import {
-  config
-}
-  from './const.js';
-
 // отображение загрузки
 
 function renderLoading(button, isLoading, buttonText = 'Сохранить', loadingText = 'Сохранение...') {
