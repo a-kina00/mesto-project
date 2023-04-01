@@ -12,7 +12,7 @@ setPopupListener()
 
 import { Card } from '../components/cards.js';
 
-import UserInfo from '../components/UserInfo.js';
+import UserInfo from '../components/userInfo.js';
 
 import FormValidator from '../components/FormValidator.js'
 
@@ -41,16 +41,20 @@ const userNameNTitle = new UserInfo({ nameSelector: '.profile__name', titleSelec
     getUserInfo: () => {
       return api.setServerInfo()
     },
-    setUserInfo: () => {
-      return api.changeServerInfo(newUserName, newUserTitle)
+    setUserInfo: (name, about) => {
+      return api.changeServerInfo(name, about)
     }
   })
+  userNameNTitle.getUserInfo() // Тут не константа т.к Данные получают не мгновенно
 
-Promise.all([api.setServerInfo(), userNameNTitle.getUserInfo(), api.createServerCards()])
-  .then(([userData, userMainData, serverCards]) => {
-    userNameNTitle.setUserInfo(userMainData.name, userMainData.title)
-    profilePicture.src = userData.avatar
-    id = userData._id
+
+
+  api.createServerCards() //Большой промис больше не нужен
+  .then((serverCards) => {
+    const userStuff = userNameNTitle.getUserInfo() // Теперь записываем пришедший объект
+
+    userNameNTitle.setUserInfo(userStuff.name, userStuff.about) // Вычеркнули api
+    id = userStuff._id // Теперь Красиво?
 
     const section = new Section({
       items: serverCards,
