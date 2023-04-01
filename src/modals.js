@@ -5,7 +5,9 @@ import {
 
 import { PopupWithForm } from './components/popupWithForm';
 
-import { Section } from './components/section.js';
+// import { Section } from './components/section.js';
+import { section } from './pages/index.js';
+
 
 import { Card } from './components/cards.js';
 
@@ -53,14 +55,14 @@ const newAddCardPopup = new PopupWithForm('#addCard',
       api.createServerCard(item["photo-name"], item["photo-url"])
         .then((result) => {
           //привязка к объекту карточки
-          const newCardObj = result;
-          const section = new Section({
-            items: newCardObj,
-            renderer: (obj, containerSelector) => {
-              containerSelector.prepend(createCard(obj).generate());
-            }
-          }, 'cards')
-          section.addItem()
+          // const newCardObj = result;
+          // const section = new Section({
+          //   items: newCardObj,
+          //   renderer: (obj, containerSelector) => {
+          //     containerSelector.prepend(createCard(obj).generate());
+          //   }
+          // }, 'cards')
+          section.addItem(result)
           newAddCardPopup.close();
         })
 

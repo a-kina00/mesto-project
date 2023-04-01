@@ -53,7 +53,13 @@ const userNameNTitle = new UserInfo({ nameSelector: '.profile__name', titleSelec
   userNameNTitle.getUserInfo() // Тут не константа т.к Данные получают не мгновенно
 
 
-
+ export const section = new Section({
+      // items: serverCards,
+      renderer: (obj, containerSelector) => {
+        containerSelector.append(createCard(obj).generate())
+      }
+    },
+      'cards')
 
 
 api.createServerCards() //Большой промис больше не нужен
@@ -63,15 +69,7 @@ api.createServerCards() //Большой промис больше не нуже
     userNameNTitle.setUserInfo(userStuff.name, userStuff.about) // Вычеркнули api
     id = userStuff._id
 
-    const section = new Section({
-      items: serverCards,
-      renderer: (obj, containerSelector) => {
-        containerSelector.append(createCard(obj).generate())
-      }
-    },
-      'cards')
-
-    section.initialCards()
+    section.initialCards(serverCards)
   })
   .catch((err) => {
     console.log(err);
