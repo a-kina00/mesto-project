@@ -21,10 +21,10 @@ const newEditPopup = new PopupWithForm('#editProfile', {
 })
 newEditPopup.setEventListeners();
 
+const newPopupWithImage = new PopupWithImage('#popup__photo');
+newPopupWithImage.setEventListeners()
 
 function createCard(item) {
-  const newPopupWithImage = new PopupWithImage('#popup__photo');
-  newPopupWithImage.setEventListeners()
 
   const newCard = new Card(item, 'card',
     (elementImage, elementTitle) => {
@@ -69,21 +69,8 @@ newAddCardPopup.setEventListeners();
 
 const newEditPfpPopup = new PopupWithForm('#editPfp',
   {
-    submitCallback: (item, initialText, button) => {
-
-      userNameNTitle._setServerPfr(item["pfp-url"])
-        .then((result) => {
-          profilePicture.src = result.avatar
-          newEditPfpPopup.close();
-        })
-
-        .catch((err) => {
-          console.log(err);
-        })
-
-        .finally(() => {
-          button.textContent = initialText;
-        })
+    submitCallback: (item) => {
+      userNameNTitle.setServerPfp(item["pfp-url"], newEditPfpPopup)
     }
   })
 newEditPfpPopup.setEventListeners();
@@ -105,6 +92,4 @@ function setPopupListener() {
 
 }
 
-
-
-export { setPopupListener, newEditPopup, newEditPfpPopup, newEditPfpPopup, createCard };
+export { setPopupListener, newEditPopup, newEditPfpPopup, createCard };

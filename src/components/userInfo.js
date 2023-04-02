@@ -1,5 +1,5 @@
 export default class UserInfo {
-  constructor({  nameSelector, titleSelector  }, {  getUserInfo, setUserInfo, closePopup, renderLoading }, { saveNewInfoBtn, profilePicture , closePopup, renderLoading, setServerPfp }, { saveNewInfoBtn, profilePicture }) {
+  constructor({ nameSelector, titleSelector }, { getUserInfo, setUserInfo, closePopup, renderLoading, setServerPfp }, { saveNewInfoBtn, profilePicture }) {
     this._nameSelector = nameSelector
     this._titleSelector = titleSelector
     this._getUserInfo = getUserInfo
@@ -8,20 +8,16 @@ export default class UserInfo {
     this._profilePicture = profilePicture
     this._saveNewInfoBtn = saveNewInfoBtn
     this._renderLoading = renderLoading
-    this._closePopup = closePopup
-    this._profilePicture = profilePicture
-    this._saveNewInfoBtn = saveNewInfoBtn
-    this._renderLoading = renderLoading
-    this._setServerPfr = setServerPfp
+    this._setServerPfp = setServerPfp
     this._name = document.querySelector(this._nameSelector)
     this._title = document.querySelector(this._titleSelector)
   }
 
   getUserInfo() {
     this._getUserInfo()
-        .then((obj) => {
-          return this._out = obj
-        })
+      .then((obj) => {
+        return this._out = obj
+      })
     return this._out
   }
 
@@ -33,34 +29,29 @@ export default class UserInfo {
         this._profilePicture.src = result.avatar
         this._closePopup()
       })
-      .then((result) => {
 
-        const name = document.querySelector(this._nameSelector)
-        const title = document.querySelector(this._titleSelector)
-
-        name.textContent = result.name
-        title.textContent = result.about
-        this._profilePicture.src = result.avatar
-        this._closePopup()
+      .catch((err) => {
+        console.log(err);
       })
 
-        .catch((err) => {
-          console.log(err);
-        })
-
-        .finally(() => {
-          this._this._renderLoading(this._this._saveNewInfoBtn, false)
-        })
+      .finally(() => {
+        this._renderLoading(this._saveNewInfoBtn, false)
+      })
   }
 
-  setServerPfp(src) {
-    this._setServerPfr(src)
+  setServerPfp(src, popup) {
+    this._setServerPfp(src)
+      .then((result) => {
+        this._profilePicture.src = result.avatar
+        popup.close()
+      })
+
+      .catch((err) => {
+        console.log(err);
+      })
+
+      .finally(() => {
+        this._renderLoading(this._saveNewInfoBtn, false)
+      })
   }
-
-
-
-
-
-
-
 }
